@@ -1,0 +1,92 @@
+@import "reset";
+@import "mixin";
+$white:#FFFFFF;
+$hui:#95989A;
+$blue:#52A8F9;
+$F76260:#F76260;
+.box-shade{
+    z-index: 90;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.3);
+    position: fixed;
+}
+
+.center1200{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.main-content{
+    width: 100%;
+    min-width: 1200px;
+    background: #f4f5f6;
+    padding:90px 0 20px 0;
+}
+.align-center{
+    text-align: center;
+}
+.align-right{
+    text-align: right;
+}
+// font-size
+.font-12{
+    font-size: 12px;
+}
+.font-16{
+    font-size: 16px;
+}
+.font-18{
+    font-size: 18px;
+}
+.font-20{
+    font-size: 20px;
+}
+.font-22{
+    font-size: 22px;
+}
+
+
+
+
+  
+
+.el-select{
+    width: 175px;
+}
+.el-button--primary{
+    padding: 10px 25px;
+}
+
+
+.admin-center{
+    width: 100%;
+    .admin-center-top{
+        margin-bottom: 15px;
+    }
+    
+}
+
+
+// 弹框代码
+.usa-up-box{
+    z-index: 100;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 2px 3px rgba(0,0,0,.4);
+}
+
+
+.el-upload-list--picture .el-upload-list__item{
+    display: block
+}
+.el-select-dropdown__item{
+    display: block
+}

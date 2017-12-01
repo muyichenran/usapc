@@ -1,6 +1,6 @@
 <template>
 	<div class="loginSign">
-		<el-tabs type="border-card" v-model="activeName"  @tab-click="handleClick">
+		<el-tabs type="border-card" v-model="activeName">
 		  <el-tab-pane label="登陆" name="login">
 		  	<table class="login">
 		  		<tr>
@@ -67,13 +67,12 @@
 export default {
 	data () {
 	    return {
-	    	activeName:'login'
+	    	activeName:this.$route.query.active||'login',
 	    }
 	},
+	watch:{
+	},
     methods:{
-	  	handleClick(tab, event) {
-	        console.log(tab, event);
-	  	},
 	  	goLogin:function(){
 	  		var url='http://luxma.helpyoulove.com/supplier/get/list';
 	        var vm=this;

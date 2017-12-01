@@ -1,18 +1,18 @@
 <template>
 		<div>
 			  <div class="usa-header">
-						<div class="usa-h-center center1200 clearfix">
-							<div class="web-name">公司名称</div>							
-							<div class="usa-h-right">
-								<div class="sign-login">
-									<a title="登陆">登陆</a>
-									<a title="注册">注册</a>
-								</div>
-								<div class="our-order">
-									<a title="我的订单">我的订单</a>
-								</div>
-							</div>
-						</div>			
+                    <div class="usa-h-center center1200 clearfix">
+                        <div class="web-name">公司名称</div>							
+                        <div class="usa-h-right">
+                            <div class="sign-login">
+                                <router-link :to="{path:'/Login',query:{active:'login'}}" title="登陆">登陆</router-link>
+                                <router-link :to="{path:'/Login',query:{active:'sign'}}" title="注册">注册</router-link>
+                            </div>
+                            <div class="our-order">
+                                <a title="我的订单">我的订单</a>
+                            </div>
+                        </div>
+                    </div>			
 				</div>
 				<div class="usa-meau">
 						<div class="center1200">
@@ -74,7 +74,7 @@ export default {
                     color: #666;
                     padding: 0 10px;
                     &:hover{
-                        color: #000;
+                        color: #fff;
                     }
                 }
             }
@@ -98,7 +98,7 @@ export default {
                         vertical-align: middle;
                     }
                     &:hover{
-                        color: #000;
+                        color: #ffffff;
                     }
                 }
             }
@@ -110,7 +110,7 @@ export default {
     width: 100%;
     min-width: 1200px;
     height: 60px;
-    background:#f4f0ea ;
+    background:#fff;
     box-shadow: 0 0 3px 0 rgba(0,0,0,.2);
     .meau-list{
         padding: 0 20px;

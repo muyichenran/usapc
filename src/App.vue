@@ -1,15 +1,42 @@
 <template>
-  <div id="app">
-    <router-view/>
-  </div>
+    <div id="app">
+        <v-Header></v-Header>
+        <div class="usa-center">
+            <router-view :key="key"/>
+        </div>
+        
+    </div>
 </template>
 
 <script>
+import Header from '@/components/Common/Header';
 export default {
-  name: 'app'
+    data(){
+        return{
+
+        }
+    },
+    methods:{
+    },
+    components: {
+      'v-Header':Header
+    },
+    computed:{
+        key() {
+          if(this.$route.path=='/Login'){
+            return  this.$route + +new Date();
+          }  
+        },
+    },   
+    created(){
+    	
+    }
 }
 </script>
 
 <style lang="scss">
-@import "./assets/index.scss";
+    @import "./assets/index.scss";
+    .usa-center{
+      margin: 20px auto;
+    }
 </style>

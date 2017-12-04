@@ -94,6 +94,15 @@
                 </li>
             </ul>
         </div>
+        <div class="text-align-center">
+            <el-pagination
+            @current-change="handleCurrentChange"
+            :current-page.sync="currentPage3"
+            :page-size="10"
+            layout="prev, pager, next, jumper"
+            :total="100">
+            </el-pagination>
+        </div>
     </div>
 </template>
 
@@ -117,6 +126,9 @@ export default {
 
 <style scoped lang="scss">
     @import "../../assets/mixin.scss";
+    .text-align-center{
+        text-align: center;
+    }
     .goods{
         width: 1200px;
         margin: 0 auto;

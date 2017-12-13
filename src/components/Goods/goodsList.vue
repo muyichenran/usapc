@@ -114,12 +114,24 @@ export default {
         }
     },
     methods:{
-
+        bodyReady:function(){
+            var url='http://luxma.helpyoulove.com/pc/item/cat/get/list';
+	        var vm=this;
+	        this.$http.post(url).then(response => {   
+	            if(response.data.status==200){
+					console.log(response.data.data)
+				}else{
+					this.$message.error(response.data.msg);
+				}
+	        }, response => {
+	        });
+            
+        }
     },
     components: {
     },
     created(){
-    	
+    	this.bodyReady();
     }
 }
 </script>

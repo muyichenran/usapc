@@ -45,7 +45,7 @@
 		  				确认密码
 		  			</td>
 		  			<td>
-		  				<el-input v-model="sign.username2" type="password"  placeholder="请输入密码"></el-input>
+		  				<el-input v-model="sign.password2" type="password"  placeholder="请输入密码"></el-input>
 		  			</td>
 		  		</tr>
 		  		<tr>
@@ -53,7 +53,7 @@
 		  				验证码
 		  			</td>
 		  			<td>
-		  				<el-input v-model="sign.registerCode" type="password"  placeholder="请输入验证码"></el-input>
+		  				<el-input v-model="sign.registerCode"   placeholder="请输入验证码"></el-input>
 		  			</td>
 		  		</tr>
 		  	</table>
@@ -80,12 +80,14 @@ export default {
 	        var vm=this;
 	        this.$http.post(url,vm.login).then(response => {   
 	            if(response.data.status==200){
+					this.$cookie.set('login', true)
 					this.$message.success('登录成功，正在跳转……');
 					var vm=this;
 					this.sign={};
 					setTimeout(() => {
-						vm.activeName='login'
+						vm.$router.push({path:'/Index'})
 					}, 1000);
+					
 				}else{
 					this.$message.error(response.data.msg);
 				}
@@ -97,7 +99,7 @@ export default {
 				this.$message.error('用户名、密码不得为空');
 				return false;
 			}
-			if(this.sign.password!==this.sign.password2){
+			if(this.sign.password!=this.sign.password2){
 				this.$message.error('两次密码不一致');
 				return false;
 			}  
@@ -105,7 +107,7 @@ export default {
 				this.$message.error('邀请码不得为空');
 				return false;
 			}
-	  		var url='http://luxma.helpyoulove.com/user/login';
+	  		var url='http://luxma.helpyoulove.com/user/register?'+this.sign.registerCode;
 	        var vm=this;
 	        this.$http.post(url,vm.sign).then(response => {   
 	            if(response.data.status==200){

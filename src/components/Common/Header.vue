@@ -20,11 +20,8 @@
 								<li class="meau-list-item">
 									<a>首页</a>
 								</li>
-								<li class="meau-list-item">
-									<a>供应商</a>
-								</li>
-								<li class="meau-list-item">
-									<a>衬衣</a>
+								<li v-for="(item,index) in catList" class="meau-list-item">
+									<a>{{item.title}}</a>
 								</li>
 							</ul>
 						</div>
@@ -34,10 +31,29 @@
 
 <script>
 export default {
-  data () {
-    return {
+    data () {
+        return {
+            catList:[],
+        }
+    },
+    methods:{
+        bodyReady:function(){
+            var url='http://luxma.helpyoulove.com/pc/item/cat/get/list';
+	        var vm=this;
+	        this.$http.post(url).then(response => {   
+	            if(response.data.status==200){
+					this.catList=response.data.data;
+				}else{
+					this.$message.error(response.data.msg);
+				}
+	        }, response => {
+	        });
+            
+        }
+    },
+    created(){
+    	this.bodyReady();
     }
-  }
 }
 </script>
 

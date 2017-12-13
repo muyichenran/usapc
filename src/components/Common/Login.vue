@@ -8,7 +8,7 @@
 		  				账号
 		  			</td>
 		  			<td>
-		  				<el-input  placeholder="请输入内容"></el-input>
+		  				<el-input v-model="login.username" placeholder="请输入内容"></el-input>
 		  			</td>
 		  		</tr>
 		  		<tr>
@@ -16,7 +16,7 @@
 		  				密码
 		  			</td>
 		  			<td>
-		  				<el-input type="password"  placeholder="请输入密码"></el-input>
+		  				<el-input v-model="login.password" type="password"  placeholder="请输入密码"></el-input>
 		  			</td>
 		  		</tr>
 		  	</table>
@@ -29,7 +29,7 @@
 		  				账号
 		  			</td>
 		  			<td>
-		  				<el-input  placeholder="请输入内容"></el-input>
+		  				<el-input v-model="sign.username"  placeholder="请输入内容"></el-input>
 		  			</td>
 		  		</tr>
 		  		<tr>
@@ -37,7 +37,7 @@
 		  				密码
 		  			</td>
 		  			<td>
-		  				<el-input type="password"  placeholder="请输入密码"></el-input>
+		  				<el-input v-model="sign.password" type="password"  placeholder="请输入密码"></el-input>
 		  			</td>
 		  		</tr>
 		  		<tr>
@@ -45,7 +45,7 @@
 		  				确认密码
 		  			</td>
 		  			<td>
-		  				<el-input type="password"  placeholder="请输入密码"></el-input>
+		  				<el-input v-model="sign.username2" type="password"  placeholder="请输入密码"></el-input>
 		  			</td>
 		  		</tr>
 		  		<tr>
@@ -53,7 +53,7 @@
 		  				验证码
 		  			</td>
 		  			<td>
-		  				<el-input type="password"  placeholder="请输入验证码"></el-input>
+		  				<el-input v-model="sign.registerCode" type="password"  placeholder="请输入验证码"></el-input>
 		  			</td>
 		  		</tr>
 		  	</table>
@@ -68,21 +68,58 @@ export default {
 	data () {
 	    return {
 	    	activeName:this.$route.query.active||'login',
+			login:{},
+			sign:{},
 	    }
 	},
 	watch:{
 	},
     methods:{
 	  	goLogin:function(){
-	  		var url='http://luxma.helpyoulove.com/supplier/get/list';
+	  		var url='http://luxma.helpyoulove.com/user/login';
 	        var vm=this;
-	        this.$http.post(url).then(response => {   
-	            this.supplierList=response.data.data;
+	        this.$http.post(url,vm.login).then(response => {   
+	            if(response.data.status==200){
+					this.$message.success('登录成功，正在跳转……');
+					var vm=this;
+					this.sign={};
+					setTimeout(() => {
+						vm.activeName='login'
+					}, 1000);
+				}else{
+					this.$message.error(response.data.msg);
+				}
 	        }, response => {
 	        });
 	  	},
 	  	goSign:function(){
-	  		
+			if(this.sign.username==''||this.sign.password==''||this.sign.username==null||this.sign.password==null){
+				this.$message.error('用户名、密码不得为空');
+				return false;
+			}
+			if(this.sign.password!==this.sign.password2){
+				this.$message.error('两次密码不一致');
+				return false;
+			}  
+			if(this.sign.registerCode==''){
+				this.$message.error('邀请码不得为空');
+				return false;
+			}
+	  		var url='http://luxma.helpyoulove.com/user/login';
+	        var vm=this;
+	        this.$http.post(url,vm.sign).then(response => {   
+	            if(response.data.status==200){
+					this.$message.success('注册成功，请登录！');
+					var vm=this;
+					this.sign={};
+					setTimeout(() => {
+						vm.activeName='login'
+					}, 1000);
+				}else{
+					this.$message.error(response.data.msg);
+				}
+	        }, response => {
+	        });
 	  	}
     }
 }

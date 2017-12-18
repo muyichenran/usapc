@@ -1,19 +1,19 @@
 <template>
 	<div class="main-content">
-		<div class="home-banner center1200 clearfix">
+		<!-- <div class="home-banner center1200 clearfix">
 			<div class="item">
-				<img src="img/1.jpg" />
+				<img src="./1.jpg" />
 			</div>
 			<div class="item">
-				<img src="img/1.jpg" />
+				<img src="./1.jpg" />
 			</div>
 			<div class="item">
-				<img src="img/1.jpg" />
+				<img src="./1.jpg" />
 			</div>
 			<div class="item">
-				<img src="img/1.jpg" />
+				<img src="./1.jpg" />
 			</div>
-		</div>	
+		</div>	 -->
 		<div class="new-product">
 				<div class="center1200 clearfix">
 					<div class="p-header">
@@ -21,7 +21,7 @@
 					</div>
 					<div class="product-list clearfix">
 						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="img/1.jpg" />
+							<img src="././1.jpg" />
 							<div class="list-text">
 								<div class="tags">
 									<span>爆品</span>
@@ -36,7 +36,7 @@
 							</div>
 						</a>
 						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="img/1.jpg" />
+							<img src="./1.jpg" />
 							<div class="list-text">
 								<div class="tags">
 									<span>爆品</span>
@@ -51,7 +51,7 @@
 							</div>
 						</a>
 						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="img/1.jpg" />
+							<img src="./1.jpg" />
 							<div class="list-text">
 								<div class="tags">
 									<span>爆品</span>
@@ -66,7 +66,7 @@
 							</div>
 						</a>
 						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="img/1.jpg" />
+							<img src="./1.jpg" />
 							<div class="list-text">
 								<div class="tags">
 									<span>爆品</span>
@@ -81,7 +81,7 @@
 							</div>
 						</a>
 						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="img/1.jpg" />
+							<img src="./1.jpg" />
 							<div class="list-text">
 								<div class="tags">
 									<span>爆品</span>
@@ -96,7 +96,7 @@
 							</div>
 						</a>
 						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="img/1.jpg" />
+							<img src="./1.jpg" />
 							<div class="list-text">
 								<div class="tags">
 									<Span>爆品</Span>
@@ -120,7 +120,7 @@
 					</div>
 					<div class="product-list clearfix">
 						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="img/1.jpg" />
+							<img src="./1.jpg" />
 							<div class="list-text">
 								<div class="tags">
 									<Span>爆品</Span>
@@ -135,7 +135,7 @@
 							</div>
 						</a>
 						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="img/1.jpg" />
+							<img src="./1.jpg" />
 							<div class="list-text">
 								<div class="tags">
 									<Span>爆品</Span>
@@ -150,7 +150,7 @@
 							</div>
 						</a>
 						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="img/1.jpg" />
+							<img src="./1.jpg" />
 							<div class="list-text">
 								<div class="tags">
 									<Span>爆品</Span>
@@ -165,7 +165,7 @@
 							</div>
 						</a>
 						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="img/1.jpg" />
+							<img src="./1.jpg" />
 							<div class="list-text">
 								<div class="tags">
 									<Span>爆品</Span>
@@ -180,7 +180,7 @@
 							</div>
 						</a>
 						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="img/1.jpg" />
+							<img src="./1.jpg" />
 							<div class="list-text">
 								<div class="tags">
 									<Span>爆品</Span>
@@ -195,7 +195,7 @@
 							</div>
 						</a>
 						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="img/1.jpg" />
+							<img src="./1.jpg" />
 							<div class="list-text">
 								<div class="tags">
 									<Span>爆品</Span>
@@ -217,17 +217,43 @@
 
 <script>
 export default {
-  data () {
-    return {
-    }
-  }
+	data () {
+		return {
+		}
+	},
+  	watch:{
+	},	
+	methods:{
+		bodyReady(){
+	  		var url='http://luxma.helpyoulove.com/pc/advert/get/list/1';
+	        var vm=this;
+	        this.$http.post(url).then(response => {   
+				if(response.data.status==432){
+					this.$message.error(response.data.msg);
+					var vm=this;
+					this.$cookie.set('login', false)
+					setTimeout(() => {
+						vm.$router.push({path:'/Login'})
+					}, 1000);
+				}else if(response.data.status==200){
+					console.log(response.data)
+					
+				}else{
+					this.$message.error(response.data.msg);
+				}
+	        }, response => {
+	        });
+		}
+	},
+	created(){
+		this.bodyReady()
+	}
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .main-content{
-    padding-top: 60px;
     width: 100%;
     min-width: 1200px;
     margin: 0 auto;

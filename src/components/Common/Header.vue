@@ -1,5 +1,5 @@
 <template>
-		<div>
+		<div class="top-fix">
 			  <div class="usa-header">
                     <div class="usa-h-center center1200 clearfix">
                         <div class="web-name">公司名称</div>							
@@ -18,10 +18,10 @@
 						<div class="center1200">
 							<ul class="meau-list">
 								<li class="meau-list-item">
-									<a>首页</a>
+									<router-link :to="{path:'/Index'}">首页</router-link>
 								</li>
 								<li v-for="(item,index) in catList" class="meau-list-item">
-									<a>{{item.title}}</a>
+									<router-link :to="{path:'/goodsList',query:{catId:item.catId}}">{{item.title}}</router-link>
 								</li>
 							</ul>
 						</div>
@@ -59,7 +59,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-		.usa-header{
+    .top-fix{
+        width: 100%;
+        min-width: 1200px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index:10;
+    }
+    .usa-header{
     width: 100%;
     min-width: 1200px;
 //  position: fixed;

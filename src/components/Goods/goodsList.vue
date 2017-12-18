@@ -97,10 +97,10 @@
         <div class="text-align-center">
             <el-pagination
             @current-change="handleCurrentChange"
-            :current-page.sync="currentPage3"
+            :current-page.sync="page"
             :page-size="10"
             layout="prev, pager, next, jumper"
-            :total="100">
+            :total="total">
             </el-pagination>
         </div>
     </div>
@@ -110,16 +110,19 @@
 export default {
     data(){
         return{
-
+            catId:this.$route.query.catId,
+            page:2,
+            total:''
         }
     },
     methods:{
         bodyReady:function(){
-            var url='http://luxma.helpyoulove.com/pc/item/cat/get/list';
+            var url='http://luxma.helpyoulove.com/pc/item/get/list/'+this.page+'?stage=10&catId='+this.catId;
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==200){
-					console.log(response.data.data)
+                    this.goodList=response.data.data.rows;
+                    this.total=response.data.data.total;
 				}else{
 					this.$message.error(response.data.msg);
 				}

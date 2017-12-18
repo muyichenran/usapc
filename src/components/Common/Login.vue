@@ -133,7 +133,7 @@ export default {
 .loginSign{
 	width: 420px;
 	background: #FFFFFF;
-	margin: 40px auto;
+	margin: 40px auto 40px;
 	.el-tabs__nav{
 		width: 100%;
 	}

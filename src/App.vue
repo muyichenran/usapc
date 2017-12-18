@@ -37,6 +37,7 @@ export default {
 <style lang="scss">
     @import "./assets/index.scss";
     .usa-center{
+      padding-top: 100px;  
       margin: 20px auto;
     }
 </style>

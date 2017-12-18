@@ -57,11 +57,11 @@
                         颜色
                     </td>
                     <td>
-                        <el-checkbox-group v-model="sizeList">
+                        <!-- <el-checkbox-group v-model="sizeList">
                             <el-checkbox v-for="(item,index) in isSizeObj.values" :label="item" border>
                                 {{item.valueTitle}}
                             </el-checkbox>
-                        </el-checkbox-group> 
+                        </el-checkbox-group>  -->
                     </td>
                 </tr>
                 <tr>

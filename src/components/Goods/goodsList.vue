@@ -4,17 +4,17 @@
             <div class="sortbar-item clearfix">
                 <span class="name">风格：</span>      
                 <div class="item-list">
-                    <a>轻松</a>
-                    <a>快乐</a>
+                    <a class="active" href="javascript:;">全部</a>
+                    <a v-for="(item,index) in searchValueList" href="javascript:;">{{item.name}}</a>
                 </div>  
             </div>
-            <div class="sortbar-item clearfix">
+            <!-- <div class="sortbar-item clearfix">
                 <span class="name">品牌：</span>      
                 <div class="item-list">
-                    <a>nick</a>
-                    <a>adidas</a>
+                    <a class="active" href="javascript:;">全部</a>
+                    <a v-for="(item,index) in supplierList" href="javascript:;">{{item.name}}</a>
                 </div>  
-            </div>
+            </div> -->
             <div class="sortbar-item clearfix">
                 <span class="name">排序：</span>      
                 <div class="item-list">
@@ -32,62 +32,17 @@
         </div>
         <div class="goods-list">
             <ul class="ul-goods-list clearfix">
-                <li class="item">
-                    <div class="item-product">
+                <li v-for="(item,index) in goodList" class="item">
+                    <div @click="goGoodDetail(item.itemId)" class="item-product">
                         <div class="hd-top">
-                            <img src="http://yanxuan.nosdn.127.net/5f6c93aceee89f6a7e169be91eeb2418.png" />
+                            <img :src="item.picUrl" />
                         </div>
                         <div class="bd-bot">
-                            <p class="name">20寸 纯PC“铝框”（非全铝）登机箱</p>
-                            <p class="price">$100</p>
+                            <p class="name">{{item.title}}</p>
+                            <p class="price">${{item.price}}</p>
                             <div class="desc">
                                 <hr>
-                                <p>40升适中容量，铝质包角，牢固抗摔</p>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="item-product">
-                        <div class="hd-top">
-                            <img src="http://yanxuan.nosdn.127.net/5f6c93aceee89f6a7e169be91eeb2418.png" />
-                        </div>
-                        <div class="bd-bot">
-                            <p class="name">20寸 纯PC“铝框”（非全铝）登机箱</p>
-                            <p class="price">$100</p>
-                            <div class="desc">
-                                <hr>
-                                <p>40升适中容量，铝质包角，牢固抗摔</p>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="item-product">
-                        <div class="hd-top">
-                            <img src="http://yanxuan.nosdn.127.net/5f6c93aceee89f6a7e169be91eeb2418.png" />
-                        </div>
-                        <div class="bd-bot">
-                            <p class="name">20寸 纯PC“铝框”（非全铝）登机箱</p>
-                            <p class="price">$100</p>
-                            <div class="desc">
-                                <hr>
-                                <p>40升适中容量，铝质包角，牢固抗摔</p>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="item">
-                    <div class="item-product">
-                        <div class="hd-top">
-                            <img src="http://yanxuan.nosdn.127.net/5f6c93aceee89f6a7e169be91eeb2418.png" />
-                        </div>
-                        <div class="bd-bot">
-                            <p class="name">20寸 纯PC“铝框”（非全铝）登机箱</p>
-                            <p class="price">$100</p>
-                            <div class="desc">
-                                <hr>
-                                <p>40升适中容量，铝质包角，牢固抗摔</p>
+                                <p>{{item.sellPoint}}</p>
                             </div>
                         </div>
                     </div>
@@ -96,10 +51,12 @@
         </div>
         <div class="text-align-center">
             <el-pagination
+            @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
-            :current-page.sync="page"
-            :page-size="10"
-            layout="prev, pager, next, jumper"
+            :current-page="curPage"
+            :page-sizes="[10, 20, 50, 100]"
+            :page-size="pageSize"
+            layout="total, sizes,prev, pager, next, jumper"
             :total="total">
             </el-pagination>
         </div>
@@ -111,13 +68,25 @@ export default {
     data(){
         return{
             catId:this.$route.query.catId,
-            page:2,
-            total:''
+            goodList:[],
+            supplierList:[],
+            searchValueList:[],
+            total:0,
+            curPage:1,
+            pageSize:10
         }
     },
     methods:{
+        handleSizeChange(val) {
+            this.pageSize=val
+            this.bodyReady()
+        },
+        handleCurrentChange(val) {
+            this.curPage=val
+            this.bodyReady()
+        },
         bodyReady:function(){
-            var url='http://luxma.helpyoulove.com/pc/item/get/list/'+this.page+'?stage=10&catId='+this.catId;
+            var url='http://luxma.helpyoulove.com/pc/item/searchByCatId/'+this.curPage+'?stage='+this.pageSize+'&catId='+this.catId;
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==200){
@@ -129,12 +98,42 @@ export default {
 	        }, response => {
 	        });
             
+        },
+        // supplierReady:function(){ 
+        //     var url='http://luxma.helpyoulove.com/pc/supplier/index/list';
+	    //     var vm=this;
+	    //     this.$http.post(url).then(response => {   
+	    //         if(response.data.status==200){
+        //             this.supplierList=response.data.data;
+		// 		}else{
+		// 			this.$message.error(response.data.msg);
+		// 		}
+	    //     }, response => {
+	    //     });
+        // },
+
+        searchValueReady:function(){ 
+            var url='http://luxma.helpyoulove.com/property/getSearchValue/'+this.catId;
+	        var vm=this;
+	        this.$http.post(url).then(response => {   
+	            if(response.data.status==200){
+                    this.searchValueList=response.data.data;
+				}else{
+					this.$message.error(response.data.msg);
+				}
+	        }, response => {
+	        });
+        },
+        goGoodDetail:function(e){
+            this.$router.push({path:'/GoodsDetail',query:{Id:e}})
         }
     },
     components: {
     },
     created(){
+        this.searchValueReady();
     	this.bodyReady();
+        
     }
 }
 </script>
@@ -190,6 +189,9 @@ export default {
                     .v-middle{
                         vertical-align: middle;
                     }
+                    .active{
+                        color: #b4a078;
+                    }
                     .icon{
                         display: inline-block;
                         width: 16px;
@@ -217,10 +219,12 @@ export default {
         .ul-goods-list{
             margin-right: -20px;
             .item{
+                height: 375px;
                 margin-right: 20px;
                 margin-bottom: 20px;
                 float: left;
                 .item-product{
+                    height: 100%;
                     line-height: 1;
                     text-align: center;
                     font-size: 13px;

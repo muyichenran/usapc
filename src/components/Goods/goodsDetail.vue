@@ -8,7 +8,7 @@
                 <ul>
                     <li class="active">
                         <a href="javascript:;">
-                            <img src="http://yanxuan.nosdn.127.net/e2a5e7100aed420074f7b4d8b5a3f9e3.png">
+                            <img :src="goodDetail.item.picUrl">
                         </a>
                     </li>
                     <li>
@@ -35,20 +35,20 @@
             </div>
         </div>
         <div class="m-info">
-            <div class="name">男式迷彩短款厚羽绒</div>
-            <div class="desc">虎斑迷彩，温暖厚实的暖意佼佼者</div>
+            <div class="name">{{goodDetail.item.title}}</div>
+            <div class="desc">{{goodDetail.item.sellPoint}}</div>
             <div class="price">
                 <div class="p-box clearfix">
                     <span class="label-1 label">
                         售价
                     </span>
                     <span class="pri">
-                        <span class="do">$</span>1000
+                        <span class="do">$</span>{{goodDetail.item.price}}
                     </span>
                 </div>
-                <div class="field remark">
+                <div v-if="goodDetail.supplier" class="field remark">
                     <span class="label">供应商</span>
-                    <span class="remarkCt">Moncler制造商</span>
+                    <span class="remarkCt">{{goodDetail.supplier.name}}</span>
                 </div>
             </div>
             <table class="choose-speci">
@@ -79,16 +79,29 @@
 export default {
     data(){
         return{
-
+            goodId:this.$route.query.Id,
+            goodDetail:{},
         }
     },
     methods:{
-
+        bodyReady:function(){
+            var url='http://luxma.helpyoulove.com/pc/item/get/'+this.goodId;
+	        var vm=this;
+	        this.$http.post(url).then(response => {   
+	            if(response.data.status==200){
+                    this.goodDetail=response.data.data;
+				}else{
+					this.$message.error(response.data.msg);
+				}
+	        }, response => {
+	        });
+            
+        },
     },
     components: {
     },
     created(){
-    	
+    	this.bodyReady();
     }
 }
 </script>

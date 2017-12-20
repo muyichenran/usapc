@@ -2,39 +2,19 @@
     <div class="goods-detail clearfix">
         <div class="m-slide">
             <div class="view">
-                <img src="http://yanxuan.nosdn.127.net/7f51e6c2324cada00389fd1aacf4b84d.jpg">
+                <img :src="showPicUrl">
             </div>
-            <div class="list">
+            <div v-if="goodDetail.item" class="list">
                 <ul>
-                    <li class="active">
-                        <a href="javascript:;">
-                            <img :src="goodDetail.item.picUrl">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <img src="http://yanxuan.nosdn.127.net/e2a5e7100aed420074f7b4d8b5a3f9e3.png">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <img src="http://yanxuan.nosdn.127.net/e2a5e7100aed420074f7b4d8b5a3f9e3.png">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <img src="http://yanxuan.nosdn.127.net/e2a5e7100aed420074f7b4d8b5a3f9e3.png">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <img src="http://yanxuan.nosdn.127.net/e2a5e7100aed420074f7b4d8b5a3f9e3.png">
+                    <li v-for="(item,index) in goodDetail.item.picList" v-bind:class="{ active: showPicUrl==item }">
+                        <a href="javascript:;" @click="showPicUrl=item">
+                            <img :src="item">
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="m-info">
+        <div v-if="goodDetail.item" class="m-info">
             <div class="name">{{goodDetail.item.title}}</div>
             <div class="desc">{{goodDetail.item.sellPoint}}</div>
             <div class="price">
@@ -53,22 +33,36 @@
             </div>
             <table class="choose-speci">
                 <tr>
-                    <td class="title">
-                        颜色
+                    <td valign="top"  width="50px" class="title" style="padding-top:25px;">
+                        {{itemProperty[0].property.title}}
                     </td>
                     <td>
-                        <!-- <el-checkbox-group v-model="sizeList">
-                            <el-checkbox v-for="(item,index) in isSizeObj.values" :label="item" border>
-                                {{item.valueTitle}}
-                            </el-checkbox>
-                        </el-checkbox-group>  -->
+                        <div class="color-list">
+                            <a class="item" v-for="(item,index) in itemProperty[0].values" 
+                                @click="colorClick(item.propertyValueId)"
+                                v-bind:style="{ background: item.valueTitle}"
+                                v-bind:class="{active:item.propertyValueId==colorId}"
+                                href="javascript:;" >
+
+                            </a>
+                        </div>
                     </td>
                 </tr>
                 <tr>
-                    <td class="title">
-                        尺码
+                    <td valign="top" class="title" style="padding-top:15px;">
+                        {{itemProperty[1].property.title}}
                     </td>
-                    <td></td>
+                    <td>
+                        <div class="size-list">
+                            <a @click="sizeClick(item.propertyValueId)" 
+                            v-for="(item,index) in itemProperty[1].values" 
+                            v-bind:class="{active:item.propertyValueId==sizeId}"
+                            class="item" 
+                            href="javascript:;">
+                                {{item.valueTitle}}
+                            </a>
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div> 
@@ -81,8 +75,31 @@ export default {
         return{
             goodId:this.$route.query.Id,
             goodDetail:{},
+            showPicUrl:'',
+            itemProperty:[],
+            colorId:'',
+            sizeId:''
         }
     },
+    watch:{
+		catId(val){
+			if(val){
+				this.GoodsInfo.catId=val;
+				this.getPropertyAll();
+			}
+		},
+		colorId(val){
+			if(this.sizeId){
+                this.searchGoods();
+            }
+		},
+        sizeId(){
+            if(this.colorId){
+                this.searchGoods();
+            }
+        }
+    },
+
     methods:{
         bodyReady:function(){
             var url='http://luxma.helpyoulove.com/pc/item/get/'+this.goodId;
@@ -90,6 +107,8 @@ export default {
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==200){
                     this.goodDetail=response.data.data;
+                    this.itemProperty=response.data.data.itemProperty;
+                    this.showPicUrl=this.goodDetail.item.picList[0];
 				}else{
 					this.$message.error(response.data.msg);
 				}
@@ -97,6 +116,25 @@ export default {
 	        });
             
         },
+        colorClick:function(e){
+            this.colorId=e;
+        },
+        sizeClick:function(e){
+            this.sizeId=e;
+        },
+        searchGoods:function(){
+            var searchVal=this.colorId+','+this.sizeId;
+            var url='http://luxma.helpyoulove.com/pc/item/get/sku/'+this.goodId+'?properties='+searchVal;;
+	        var vm=this;
+	        this.$http.post(url).then(response => {   
+	            if(response.data.status==200){
+                    
+				}else{
+					this.$message.error(response.data.msg);
+				}
+	        }, response => {
+	        });
+        }
     },
     components: {
     },
@@ -247,6 +285,42 @@ export default {
             .choose-speci{
                 width: 100%;
                 margin-top: 20px;
+                td{
+                    padding: 10px;
+                }
+            }
+        }
+        .color-list{
+            .item{
+                width: 50px;
+                height: 50px;
+                display: block;
+                float: left;
+                margin-right: 10px;
+                margin-bottom: 15px;
+                box-sizing: border-box;
+                border: 1px solid #ddd;
+            }
+            .active{
+                border: 2px solid #b4a078;
+            }
+        }
+        .size-list{
+            .item{
+                margin-right: 10px;
+                margin-bottom: 15px;
+                padding: 0 25px;
+                height: 30px;
+                line-height: 28px;
+                border: 1px dashed #e4e4e4;
+                font-size: 14px;
+                display: inline-block;
+                float: left;
+                box-sizing: border-box;
+                border: 1px solid #ddd;
+            }
+            .active{
+                border: 2px solid #b4a078;
             }
         }
     }    

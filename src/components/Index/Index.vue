@@ -225,7 +225,7 @@ export default {
 	},	
 	methods:{
 		bodyReady(){
-	  		var url='http://luxma.helpyoulove.com/pc/advert/get/list/1';
+	  		var url='http://luxma.helpyoulove.com/pc/advert/getAll';
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 				if(response.data.status==432){

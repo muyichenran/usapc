@@ -128,7 +128,7 @@ export default {
             this.$router.push({path:'/GoodsDetail',query:{Id:e}})
         }
     },
-    components: {
+    cts: {
     },
     created(){
         this.searchValueReady();

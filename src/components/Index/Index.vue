@@ -14,98 +14,23 @@
 				<img src="./1.jpg" />
 			</div>
 		</div>	 -->
-		<div class="new-product">
+		<div class="new-product" v-for="(item,index) in obj">
 				<div class="center1200 clearfix">
 					<div class="p-header">
-						<h3 class="name">新品首发</h3>
+						<h3 class="name">{{item.typeTitle}}</h3>
 					</div>
-					<div class="product-list clearfix">
-						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="././1.jpg" />
+					<div v-for="(item1,index1) in item.advertList" class="product-list clearfix">
+						<a class="list-item" :title="item1.title">
+							<img :src="item1.picUrl" />
 							<div class="list-text">
 								<div class="tags">
-									<span>爆品</span>
+									<span>{{item1.itemRecommend}}</span>
 								</div>
 								<div class="name">
-									<p>男式咖啡碳+5℃升级保暖内衣套装</p>
+									<p>{{item1.title}}</p>
 								</div>
 								<p class="price">
-									<span>￥120</span>
-									<span class="tagName" >Adidas制造商</span>
-								</p>
-							</div>
-						</a>
-						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="./1.jpg" />
-							<div class="list-text">
-								<div class="tags">
-									<span>爆品</span>
-								</div>
-								<div class="name">
-									<p>男式咖啡碳+5℃升级保暖内衣套装</p>
-								</div>
-								<p class="price">
-									<span>￥120</span>
-									<span class="tagName" >Adidas制造商</span>
-								</p>
-							</div>
-						</a>
-						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="./1.jpg" />
-							<div class="list-text">
-								<div class="tags">
-									<span>爆品</span>
-								</div>
-								<div class="name">
-									<p>男式咖啡碳+5℃升级保暖内衣套装</p>
-								</div>
-								<p class="price">
-									<span>￥120</span>
-									<span class="tagName" >Adidas制造商</span>
-								</p>
-							</div>
-						</a>
-						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="./1.jpg" />
-							<div class="list-text">
-								<div class="tags">
-									<span>爆品</span>
-								</div>
-								<div class="name">
-									<p>男式咖啡碳+5℃升级保暖内衣套装</p>
-								</div>
-								<p class="price">
-									<span>￥120</span>
-									<span class="tagName" >Adidas制造商</span>
-								</p>
-							</div>
-						</a>
-						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="./1.jpg" />
-							<div class="list-text">
-								<div class="tags">
-									<span>爆品</span>
-								</div>
-								<div class="name">
-									<p>男式咖啡碳+5℃升级保暖内衣套装</p>
-								</div>
-								<p class="price">
-									<span>￥120</span>
-									<span class="tagName" >Adidas制造商</span>
-								</p>
-							</div>
-						</a>
-						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="./1.jpg" />
-							<div class="list-text">
-								<div class="tags">
-									<Span>爆品</Span>
-								</div>
-								<div class="name">
-									<p>男式咖啡碳+5℃升级保暖内衣套装</p>
-								</div>
-								<p class="price">
-									<span>￥120</span>
+									<span>${{item1.price}}</span>
 									<span class="tagName" >Adidas制造商</span>
 								</p>
 							</div>
@@ -113,105 +38,6 @@
 					</div>
 				</div>
 			</div>
-		<div class="new-product">
-				<div class="center1200 clearfix">
-					<div class="p-header">
-						<h3 class="name">新品首发</h3>
-					</div>
-					<div class="product-list clearfix">
-						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="./1.jpg" />
-							<div class="list-text">
-								<div class="tags">
-									<Span>爆品</Span>
-								</div>
-								<div class="name">
-									<p>男式咖啡碳+5℃升级保暖内衣套装</p>
-								</div>
-								<p class="price">
-									<span>￥120</span>
-									<span class="tagName" >Adidas制造商</span>
-								</p>
-							</div>
-						</a>
-						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="./1.jpg" />
-							<div class="list-text">
-								<div class="tags">
-									<Span>爆品</Span>
-								</div>
-								<div class="name">
-									<p>男式咖啡碳+5℃升级保暖内衣套装</p>
-								</div>
-								<p class="price">
-									<span>￥120</span>
-									<span class="tagName" >Adidas制造商</span>
-								</p>
-							</div>
-						</a>
-						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="./1.jpg" />
-							<div class="list-text">
-								<div class="tags">
-									<Span>爆品</Span>
-								</div>
-								<div class="name">
-									<p>男式咖啡碳+5℃升级保暖内衣套装</p>
-								</div>
-								<p class="price">
-									<span>￥120</span>
-									<span class="tagName" >Adidas制造商</span>
-								</p>
-							</div>
-						</a>
-						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="./1.jpg" />
-							<div class="list-text">
-								<div class="tags">
-									<Span>爆品</Span>
-								</div>
-								<div class="name">
-									<p>男式咖啡碳+5℃升级保暖内衣套装</p>
-								</div>
-								<p class="price">
-									<span>￥120</span>
-									<span class="tagName" >Adidas制造商</span>
-								</p>
-							</div>
-						</a>
-						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="./1.jpg" />
-							<div class="list-text">
-								<div class="tags">
-									<Span>爆品</Span>
-								</div>
-								<div class="name">
-									<p>男式咖啡碳+5℃升级保暖内衣套装</p>
-								</div>
-								<p class="price">
-									<span>￥120</span>
-									<span class="tagName" >Adidas制造商</span>
-								</p>
-							</div>
-						</a>
-						<a class="list-item" title="男式咖啡碳+5℃升级保暖内衣套装">
-							<img src="./1.jpg" />
-							<div class="list-text">
-								<div class="tags">
-									<Span>爆品</Span>
-								</div>
-								<div class="name">
-									<p>男式咖啡碳+5℃升级保暖内衣套装</p>
-								</div>
-								<p class="price">
-									<span>￥120</span>
-									<span class="tagName" >Adidas制造商</span>
-								</p>
-							</div>
-						</a>
-					</div>
-				</div>
-			</div>		
 	</div>		
 </template>
 
@@ -219,6 +45,7 @@
 export default {
 	data () {
 		return {
+			obj:{}
 		}
 	},
   	watch:{
@@ -236,7 +63,7 @@ export default {
 						vm.$router.push({path:'/Login'})
 					}, 1000);
 				}else if(response.data.status==200){
-					console.log(response.data)
+					this.obj=response.data.data;
 					
 				}else{
 					this.$message.error(response.data.msg);
@@ -335,6 +162,7 @@ export default {
                 }
                 img{
                     width: 100%;
+					height: 224px;
                     -webkit-transition: -webkit-transform 1s;
                     -moz-transition: -moz-transform 1s;
                     -o-transition: -o-transform 1s;

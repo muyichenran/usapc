@@ -149,17 +149,16 @@ export default {
                 font-size: 20px;
                 font-weight: 700;
                 position:relative; 
-                display: block;
-                &:before{
-                    position: absolute;
-                    display: block;
-                    top: 0;
-                    width: 100%;
-                    height: 2px;
+                padding: 5px 0;
+                // display: block;
+                &:hover{
+                    color: #b4a078;
+                    border-bottom: 3px solid #b4a078
                 }
-                &:hover::before{                       
-                    background:#b4a078;                       
-                }
+            }
+            .router-link-exact-active{
+                color: #b4a078;
+                border-bottom: 3px solid #b4a078
             }
         }
     }

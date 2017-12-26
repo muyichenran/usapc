@@ -19,9 +19,11 @@
 					<div class="p-header">
 						<h3 class="name">{{item.typeTitle}}</h3>
 					</div>
-					<div v-for="(item1,index1) in item.advertList" class="product-list clearfix">
-						<a class="list-item" :title="item1.title">
-							<img :src="item1.picUrl" />
+					<div  class="product-list clearfix">
+						<a v-for="(item1,index1) in item.advertList" class="list-item" :title="item1.title">
+                            <div class="img-div">
+							    <img :src="item1.picUrl" />
+                            </div>
 							<div class="list-text">
 								<div class="tags">
 									<span>{{item1.itemRecommend}}</span>
@@ -141,6 +143,11 @@ export default {
             }
         }
         .product-list{
+            .img-div{
+                width: 100%;
+                height: 224px;
+                overflow: hidden;
+            }
             .list-item{
                 float: left;
                 margin-bottom: 20px;

@@ -23,7 +23,7 @@ export default {
     },
     computed:{
         key() {
-          if(this.$route.path=='/Login'){
+          if(this.$route.path=='/Login'||this.$route.path=='/goodsList'){
             return  this.$route + +new Date();
           }  
         },

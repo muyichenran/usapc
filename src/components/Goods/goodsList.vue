@@ -1,11 +1,11 @@
 <template>
     <div class="goods">
         <div class="m-sortbar">
-            <div class="sortbar-item clearfix">
-                <span class="name">风格：</span>      
+            <div v-if="isSearchObj" class="sortbar-item clearfix">
+                <span class="name" v-if="isSearchObj.property">{{isSearchObj.property.title}}：</span>      
                 <div class="item-list">
-                    <a class="active" href="javascript:;">全部</a>
-                    <a v-for="(item,index) in searchValueList" href="javascript:;">{{item.name}}</a>
+                    <a v-bind:class="{ active: searchId=='' }" @click="styleFind()" href="javascript:;">全部</a>
+                    <a v-for="(item,index) in isSearchObj.values"  @click="styleFind(item.propertyValueId)" v-bind:class="{ active: searchId==item.propertyValueId }"  href="javascript:;">{{item.valueTitle}}</a>
                 </div>  
             </div>
             <!-- <div class="sortbar-item clearfix">
@@ -18,15 +18,14 @@
             <div class="sortbar-item clearfix">
                 <span class="name">排序：</span>      
                 <div class="item-list">
-                    <a>默认</a>
-                    <a>价格
+                    <a @click="orderFind('','')">默认</a>
+                    <a @click="orderFind('price','',priceType)">价格
                         <span class="icon">
                             <i class="i-a iconfont">&#xe622;</i>
                             <i class="i-b iconfont">&#xe62c;</i>
                         </span>
-                        
                     </a>
-                    <a>上架时间<i class="iconfont v-middle">&#xe767;</i></a>
+                    <a @click="orderFind('create_time','ASC')">上架时间<i class="iconfont v-middle">&#xe767;</i></a>
                 </div>  
             </div>
         </div>
@@ -73,7 +72,14 @@ export default {
             searchValueList:[],
             total:0,
             curPage:1,
-            pageSize:10
+            pageSize:10,
+
+
+            isSearchObj:{},
+            searchId:'',
+            orderType :'',
+            order:'',
+            priceType:''
         }
     },
     methods:{
@@ -86,7 +92,7 @@ export default {
             this.bodyReady()
         },
         bodyReady:function(){
-            var url='http://luxma.helpyoulove.com/pc/item/searchByCatId/'+this.curPage+'?stage='+this.pageSize+'&catId='+this.catId;
+            var url='http://luxma.helpyoulove.com/pc/item/searchByCatId/'+this.curPage+'?stage='+this.pageSize+'&catId='+this.catId+'&orderType='+this.orderType+'&order='+this.order;
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==200){
@@ -96,8 +102,7 @@ export default {
 					this.$message.error(response.data.msg);
 				}
 	        }, response => {
-	        });
-            
+	        });  
         },
         // supplierReady:function(){ 
         //     var url='http://luxma.helpyoulove.com/pc/supplier/index/list';
@@ -118,17 +123,43 @@ export default {
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==200){
                     this.searchValueList=response.data.data;
+                    for(var i in this.searchValueList){
+                        if(this.searchValueList[i].property.isSearch){
+                            this.isSearchObj=this.searchValueList[i];
+                            
+                        }
+                    }
+                    console.log(this.isSearchObj)
 				}else{
 					this.$message.error(response.data.msg);
 				}
 	        }, response => {
 	        });
         },
+        styleFind:function(){
+
+        },    
+        orderFind(e,f,g){
+            this.orderType=e;
+            if(e=='create_time'){
+                this.order='ASC';
+            }else if(e=='price'){
+                if(this.priceType==''){
+                    this.order='DESC';
+                    this.priceType=1;
+                }else{
+                    this.order='ASC';
+                    this.priceType='';
+                }
+            }
+            this.bodyReady();
+        },
         goGoodDetail:function(e){
             this.$router.push({path:'/GoodsDetail',query:{Id:e}})
-        }
-    },
-    cts: {
+        },
+
+
+
     },
     created(){
         this.searchValueReady();

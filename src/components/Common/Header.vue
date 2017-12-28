@@ -20,6 +20,24 @@
 								<li class="meau-list-item">
 									<router-link :to="{path:'/Index'}">首页</router-link>
 								</li>
+                                <li class="meau-list-item supplier-show">
+									<a href="javascript:;" v-bind:class="{ active: supId }">
+                                        供应商
+                                        <div class="supplier-blcok">
+                                            <div class="supplier-center">
+                                                <ul class="clearfix">
+                                                    <li v-for="(item,index) in supList">
+                                                        <router-link :to="{path:'/goodsList',query:{supId:item.supplierId}}">
+                                                            <img :src="item.picUrl">
+                                                            <p>{{item.name}}</p>
+                                                        </router-link>
+                                                    </li>
+                                                    
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </a>
+								</li>
 								<li v-for="(item,index) in catList" class="meau-list-item">
 									<router-link :to="{path:'/goodsList',query:{catId:item.catId}}">{{item.title}}</router-link>
 								</li>
@@ -34,7 +52,23 @@ export default {
     data () {
         return {
             catList:[],
+            supList:[],
+            active:false
         }
+    },
+    computed:{
+        supId(){
+            return this.$route.query.supId;
+        }
+    },
+    watch:{
+        '$route' (to, from) {
+            if(to.path=='/goodsList'){
+              if(to.query.supId){
+                  this.active=true;
+              }
+            }
+        },
     },
     methods:{
         bodyReady:function(){
@@ -49,25 +83,40 @@ export default {
 	        }, response => {
 	        });
             
-        }
+        },
+        supReady:function(){
+            var url='http://luxma.helpyoulove.com/pc/supplier/get/list';
+	        var vm=this;
+	        this.$http.post(url).then(response => {   
+	            if(response.data.status==200){
+					this.supList=response.data.data;
+				}else{
+					this.$message.error(response.data.msg);
+				}
+	        }, response => {
+	        });
+            
+        },
+        
     },
     created(){
     	this.bodyReady();
+        this.supReady();
     }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-    .top-fix{
-        width: 100%;
-        min-width: 1200px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index:10;
-    }
-    .usa-header{
+.top-fix{
+    width: 100%;
+    min-width: 1200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index:10;
+}
+.usa-header{
     width: 100%;
     min-width: 1200px;
 //  position: fixed;
@@ -164,4 +213,51 @@ export default {
     }
 }
 
+
+.supplier-blcok{
+    position: fixed;
+    display: none;
+    left: 0;
+    top: 100px;
+    width: 100%;
+    background: #ffffff;
+    min-width: 1200px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.4);
+    .supplier-center{
+        margin: 0 auto;
+        width: 1200px;
+        padding:15px 60px;
+        ul{
+            margin-right: -80px;
+            li{
+                text-align: center;
+                margin: 15px 0;
+                margin-right: 80px;
+                width: 100px;
+                display: block;
+                float: left;
+                // padding: 0 10px;
+                img{
+                    width: 50px;
+                    height: 50px;
+                }
+                p{
+                    line-height: 1;
+                    margin-top: 15px; 
+                }
+            }
+        }
+    }
+}
+.supplier-show{
+    &:hover{
+        .supplier-blcok{
+            display: block;
+        }
+    }
+}
+.active{
+    color: #b4a078!important;
+    border-bottom: 3px solid #b4a078
+}
 </style>

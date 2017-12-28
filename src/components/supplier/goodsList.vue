@@ -1,7 +1,7 @@
 <template>
     <div class="goods">
         <div class="m-sortbar">
-            <div v-if="isSearchObj && !supId && isSearchObj.values" class="sortbar-item clearfix">
+            <div v-if="isSearchObj" class="sortbar-item clearfix">
                 <span class="name" v-if="isSearchObj.property">{{isSearchObj.property.title}}：</span>      
                 <div class="item-list">
                     <a v-bind:class="{ active: searchId=='' }" @click="styleFind()" href="javascript:;">全部</a>
@@ -18,14 +18,14 @@
             <div class="sortbar-item clearfix">
                 <span class="name">排序：</span>      
                 <div class="item-list">
-                    <a v-bind:class="{ active: orderType=='' }" @click="orderFind('','')">默认</a>
-                    <a v-bind:class="{ active: orderType=='price' }"  @click="orderFind('price','',priceType)">价格
+                    <a @click="orderFind('','')">默认</a>
+                    <a @click="orderFind('price','',priceType)">价格
                         <span class="icon">
-                            <i v-bind:class="{ active: priceType==1 }" class="i-a iconfont">&#xe622;</i>
-                            <i v-bind:class="{ active: priceType==2 }" class="i-b iconfont">&#xe62c;</i>
+                            <i class="i-a iconfont">&#xe622;</i>
+                            <i class="i-b iconfont">&#xe62c;</i>
                         </span>
                     </a>
-                    <a v-bind:class="{ active: orderType=='create_time' }"  @click="orderFind('create_time','ASC')">上架时间<i class="iconfont v-middle" v-bind:class="{ active: orderType=='create_time' }">&#xe767;</i></a>
+                    <a @click="orderFind('create_time','ASC')">上架时间<i class="iconfont v-middle">&#xe767;</i></a>
                 </div>  
             </div>
         </div>
@@ -48,10 +48,7 @@
                 </li>
             </ul>
         </div>
-        <div v-if="goodList.length<=0" class="no-content">
-            No Data
-        </div>
-        <div v-if="total>=10" class="text-align-center">
+        <div class="text-align-center">
             <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -70,7 +67,6 @@ export default {
     data(){
         return{
             catId:this.$route.query.catId,
-            supId:this.$route.query.supId,
             goodList:[],
             supplierList:[],
             searchValueList:[],
@@ -96,12 +92,7 @@ export default {
             this.bodyReady()
         },
         bodyReady:function(){
-            if(this.supId){
-                var url='http://luxma.helpyoulove.com/pc/item/searchBySupplierId/'+this.curPage+'?stage='+this.pageSize+'&supplierId='+this.supId+'&orderType='+this.orderType+'&order='+this.order;
-            }else if(this.catId){
-                var url='http://luxma.helpyoulove.com/pc/item/searchByCatId/'+this.curPage+'?stage='+this.pageSize+'&catId='+this.catId+'&orderType='+this.orderType+'&order='+this.order;
-            }
-            
+            var url='http://luxma.helpyoulove.com/pc/item/searchByCatId/'+this.curPage+'?stage='+this.pageSize+'&catId='+this.catId+'&orderType='+this.orderType+'&order='+this.order;
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==200){
@@ -145,61 +136,23 @@ export default {
 	        }, response => {
 	        });
         },
-            
+        styleFind:function(){
+
+        },    
         orderFind(e,f,g){
             this.orderType=e;
             if(e=='create_time'){
-                if(this.firstTime){
-                    this.priceType='';
-                    this.order='ASC';
-                    this.firstTime=false;
-                }else{
-                    this.priceType='';
-                    this.orderType='';
-                    this.order='';
-                    this.firstTime=true;
-                }
+                this.order='ASC';
             }else if(e=='price'){
                 if(this.priceType==''){
                     this.order='DESC';
                     this.priceType=1;
-                }else if(this.priceType==1){
+                }else{
                     this.order='ASC';
-                    this.priceType=2;
-                }else if(this.priceType==2){
-                    this.orderType='';
-                    this.order='';
-                    this.priceType=''
+                    this.priceType='';
                 }
             }
-            if(this.searchId){
-                this.searchBySearchIdFun();
-            }else{
-                this.bodyReady();
-            }
-            
-        },
-
-        searchBySearchIdFun:function(){
-            var url='http://luxma.helpyoulove.com/pc/item/searchByCatId/'+this.curPage+'?propertyValueId='+this.searchId+'&stage='+this.pageSize+'&catId='+this.catId+'&orderType='+this.orderType+'&order='+this.order;
-	        var vm=this;
-	        this.$http.post(url).then(response => {   
-	            if(response.data.status==200){
-                    this.goodList=response.data.data.rows;
-                    this.total=response.data.data.total;
-				}else{
-					this.$message.error(response.data.msg);
-				}
-	        }, response => {
-	        });  
-        },
-        styleFind:function(e){
-            this.searchId=e;
-            if(this.searchId){
-                this.searchBySearchIdFun();
-            }else{
-                this.bodyReady();
-            }
+            this.bodyReady();
         },
         goGoodDetail:function(e){
             this.$router.push({path:'/GoodsDetail',query:{Id:e}})
@@ -209,10 +162,7 @@ export default {
 
     },
     created(){
-        if(this.catId){
-            this.searchValueReady();
-        }
-        
+        this.searchValueReady();
     	this.bodyReady();
         
     }
@@ -234,10 +184,10 @@ export default {
             overflow: hidden;
             .sortbar-item{
                 overflow: hidden;
-                border-bottom: 1px dashed #dedede;
+                border-top: 1px dashed #dedede;
                 line-height: 1;
                 &:first-child{
-                    // border: none;
+                    border: none;
                 }
                 &>span{
                     display: inline-block;
@@ -294,7 +244,7 @@ export default {
         }    
     }
     .goods-list{
-        margin-top: 30px;
+        margin-top: 10px;
         position: relative;
         background-color: #fff;
         .ul-goods-list{

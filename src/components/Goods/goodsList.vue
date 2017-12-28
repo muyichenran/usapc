@@ -181,7 +181,7 @@ export default {
         },
 
         searchBySearchIdFun:function(){
-            var url='http://luxma.helpyoulove.com/pc/item/searchByCatId/'+this.curPage+'?propertyValueId='+this.searchId+'&stage='+this.pageSize+'&catId='+this.catId+'&orderType='+this.orderType+'&order='+this.order;
+            var url='http://luxma.helpyoulove.com/pc/item/searchBySearchId/'+this.curPage+'?propertyValueId='+this.searchId+'&stage='+this.pageSize+'&catId='+this.catId+'&orderType='+this.orderType+'&order='+this.order;
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==200){

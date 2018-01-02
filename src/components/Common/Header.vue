@@ -9,7 +9,8 @@
                                 <router-link :to="{path:'/Login',query:{active:'sign'}}" title="注册">注册</router-link>
                             </div>
                             <div class="our-order">
-                                <a title="我的订单">我的订单</a>
+                                <router-link :to="{path:'/orderHistory'}" title="我的订单">我的订单</router-link>
+                                <a title="我的订单">购物车{{author}}</a>
                             </div>
                         </div>
                     </div>			
@@ -59,6 +60,9 @@ export default {
     computed:{
         supId(){
             return this.$route.query.supId;
+        },
+        author () {
+            return this.$store.state.orderList
         }
     },
     watch:{
@@ -108,12 +112,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+
 .top-fix{
     width: 100%;
     min-width: 1200px;
     position: fixed;
     top: 0;
     left: 0;
+    right:0;
     z-index:10;
 }
 .usa-header{

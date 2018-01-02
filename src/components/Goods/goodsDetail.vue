@@ -64,6 +64,22 @@
                         </div>
                     </td>
                 </tr>
+                <tr>
+                    <td valign="top" class="title" style="padding-top:15px;">
+                        数量
+                    </td>
+                    <td>
+                        <el-input-number :min="0" v-model="num1"></el-input-number>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="title" style="padding-top:15px;">
+                        
+                    </td>
+                    <td>
+                        <el-button @click="addGoods()" type="primary">加入购物车</el-button>
+                    </td>
+                </tr>
             </table>
         </div> 
     </div>
@@ -78,7 +94,8 @@ export default {
             showPicUrl:'',
             itemProperty:[],
             colorId:'',
-            sizeId:''
+            sizeId:'',
+            num1:''
         }
     },
     watch:{
@@ -114,7 +131,7 @@ export default {
 				}
 	        }, response => {
 	        });
-            
+             
         },
         colorClick:function(e){
             this.colorId=e;
@@ -134,6 +151,9 @@ export default {
 				}
 	        }, response => {
 	        });
+        },
+        addGoods(){
+            this.$store.state.orderList=1;
         }
     },
     components: {

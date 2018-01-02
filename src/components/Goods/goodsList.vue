@@ -18,14 +18,14 @@
             <div class="sortbar-item clearfix">
                 <span class="name">排序：</span>      
                 <div class="item-list">
-                    <a v-bind:class="{ active: orderType=='' }" @click="orderFind('','')">默认</a>
-                    <a v-bind:class="{ active: orderType=='price' }"  @click="orderFind('price','',priceType)">价格
+                    <a v-bind:class="{ active: orderType=='' }" href="javascript:;" @click="orderFind('','')">默认</a>
+                    <a v-bind:class="{ active: orderType=='price' }" href="javascript:;"  @click="orderFind('price','',priceType)">价格
                         <span class="icon">
                             <i v-bind:class="{ active: priceType==1 }" class="i-a iconfont">&#xe622;</i>
                             <i v-bind:class="{ active: priceType==2 }" class="i-b iconfont">&#xe62c;</i>
                         </span>
                     </a>
-                    <a v-bind:class="{ active: orderType=='create_time' }"  @click="orderFind('create_time','ASC')">上架时间<i class="iconfont v-middle" v-bind:class="{ active: orderType=='create_time' }">&#xe767;</i></a>
+                    <a v-bind:class="{ active: orderType=='create_time' }"  href="javascript:;" @click="orderFind('create_time','ASC')">上架时间<i class="iconfont v-middle" v-bind:class="{ active: orderType=='create_time' }">&#xe767;</i></a>
                 </div>  
             </div>
         </div>

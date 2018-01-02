@@ -4,6 +4,8 @@ import Login from '@/components/Common/Login'
 import GoodsList from '@/components/Goods/goodsList'
 import GoodsDetail from '@/components/Goods/goodsDetail'
 import Index from '@/components/Index/Index'
+
+import orderHistory from '@/components/order/orderHistory'
 Vue.use(Router)
 
 export default new Router({
@@ -23,6 +25,10 @@ export default new Router({
     {
     	path: '/GoodsList',
       component: GoodsList
+    },
+    {
+    	path: '/orderHistory',
+      component: orderHistory
     }
   ]
 })

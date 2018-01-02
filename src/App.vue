@@ -36,6 +36,10 @@ export default {
 
 <style lang="scss">
     @import "./assets/index.scss";
+    #app{
+        width: 100%;
+        min-width: 1200px;
+    }
     .usa-center{
       padding-top: 100px;  
       margin: 20px auto;

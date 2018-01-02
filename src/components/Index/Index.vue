@@ -20,7 +20,7 @@
 						<h3 class="name">{{item.typeTitle}}</h3>
 					</div>
 					<div  class="product-list clearfix">
-						<a v-for="(item1,index1) in item.advertList" class="list-item" :title="item1.title">
+						<a v-for="(item1,index1) in item.advertList" @click="goGoodDetail(item1.itemId)" class="list-item" :title="item1.title">
                             <div class="img-div">
 							    <img :src="item1.picUrl" />
                             </div>
@@ -53,6 +53,9 @@ export default {
   	watch:{
 	},	
 	methods:{
+        goGoodDetail:function(e){
+            this.$router.push({path:'/GoodsDetail',query:{Id:e}})
+        },
 		bodyReady(){
 	  		var url='http://luxma.helpyoulove.com/pc/advert/getAll';
 	        var vm=this;

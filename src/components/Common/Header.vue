@@ -10,7 +10,7 @@
                             </div>
                             <div class="our-order">
                                 <router-link :to="{path:'/orderHistory'}" title="我的订单">我的订单</router-link>
-                                <a title="我的订单">购物车{{author}}</a>
+                                <a title="我的订单">购物车<span v-html="cartGoods.length"></span></a>
                             </div>
                         </div>
                     </div>			
@@ -61,8 +61,8 @@ export default {
         supId(){
             return this.$route.query.supId;
         },
-        author () {
-            return this.$store.state.orderList
+        cartGoods () {
+            return JSON.parse(localStorage.getItem("cartGoods"));
         }
     },
     watch:{

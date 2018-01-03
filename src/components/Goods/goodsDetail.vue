@@ -31,56 +31,62 @@
                     <span class="remarkCt">{{goodDetail.supplier.name}}</span>
                 </div>
             </div>
-            <table class="choose-speci">
-                <tr>
-                    <td valign="top"  width="50px" class="title" style="padding-top:25px;">
-                        {{itemProperty[0].property.title}}
-                    </td>
-                    <td>
-                        <div class="color-list">
-                            <a class="item" v-for="(item,index) in itemProperty[0].values" 
-                                @click="colorClick(item.propertyValueId)"
-                                v-bind:style="{ background: item.valueTitle}"
-                                v-bind:class="{active:item.propertyValueId==colorId}"
-                                href="javascript:;" >
+            <div class="goods-skin" v-bind:class="{ goodserror: errorShow }">
+                <div v-if="errorShow" class="good-error clearfix">
+                    <span>请选择您要的商品信息</span>
+                    <a class="close" style="float:right" @click="errorShow=false" href="javascript:;">x</a>
+                </div>
+                <table class="choose-speci">
+                    <tr>
+                        <td valign="top"  width="50px" class="title" style="padding-top:25px;">
+                            {{itemProperty[0].property.title}}
+                        </td>
+                        <td>
+                            <div class="color-list">
+                                <a class="item" v-for="(item,index) in itemProperty[0].values" 
+                                    @click="colorClick(item.propertyValueId)"
+                                    v-bind:style="{ background: item.valueTitle}"
+                                    v-bind:class="{active:item.propertyValueId==colorId}"
+                                    href="javascript:;" >
 
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="title" style="padding-top:15px;">
-                        {{itemProperty[1].property.title}}
-                    </td>
-                    <td>
-                        <div class="size-list">
-                            <a @click="sizeClick(item.propertyValueId)" 
-                            v-for="(item,index) in itemProperty[1].values" 
-                            v-bind:class="{active:item.propertyValueId==sizeId}"
-                            class="item" 
-                            href="javascript:;">
-                                {{item.valueTitle}}
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="title" style="padding-top:15px;">
-                        数量
-                    </td>
-                    <td>
-                        <el-input-number :min="0" v-model="num1"></el-input-number>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" class="title" style="padding-top:15px;">
-                        
-                    </td>
-                    <td>
-                        <el-button @click="addGoods()" type="primary">加入购物车</el-button>
-                    </td>
-                </tr>
-            </table>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" class="title" style="padding-top:15px;">
+                            {{itemProperty[1].property.title}}
+                        </td>
+                        <td>
+                            <div class="size-list">
+                                <a @click="sizeClick(item.propertyValueId)" 
+                                v-for="(item,index) in itemProperty[1].values" 
+                                v-bind:class="{active:item.propertyValueId==sizeId}"
+                                class="item" 
+                                href="javascript:;">
+                                    {{item.valueTitle}}
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" class="title" style="padding-top:15px;">
+                            数量
+                        </td>
+                        <td>
+                            <el-input-number :min="1" v-model="num1" style="width:150px"></el-input-number><span v-if="catNum" style="color:#95989a;padding-left:15px;">库存{{catNum}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" class="title" style="padding-top:15px;">
+                            
+                        </td>
+                        <td>
+                            <el-button @click="addGoods()" type="primary">加入购物车</el-button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div> 
     </div>
 </template>
@@ -95,7 +101,9 @@ export default {
             itemProperty:[],
             colorId:'',
             sizeId:'',
-            num1:''
+            num1:'',
+            errorShow:false,
+            catNum:''
         }
     },
     watch:{
@@ -107,11 +115,14 @@ export default {
 		},
 		colorId(val){
 			if(this.sizeId){
+                this.errorShow=false;
                 this.searchGoods();
+
             }
 		},
         sizeId(){
             if(this.colorId){
+                this.errorShow=false;
                 this.searchGoods();
             }
         }
@@ -145,7 +156,7 @@ export default {
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==200){
-                    
+                    this.catNum=response.data.data.quantity;
 				}else{
 					this.$message.error(response.data.msg);
 				}
@@ -153,8 +164,41 @@ export default {
 	        });
         },
         addGoods(){
-            this.$store.state.orderList=1;
-        }
+            if(this.colorId==''||this.colorId==''){
+                this.errorShow=true;
+                return false;
+            }
+            if(this.num1>this.catNum){
+                this.$message.error('库存不足，请重新修改库存数量');
+                return false;
+            }
+            var item={};
+            item.itemId=this.goodId;
+            item.num=this.num1;
+            item.price=this.goodDetail.item.price
+            item.priceTotal=this.num1*this.goodDetail.item.price;
+            item.itemTitle=this.goodDetail.item.title;
+            this.$store.state.orderList=this.$store.state.orderList.push(item);
+
+            if (localStorage.getItem("cartGoods")) {
+                var cartGoods=JSON.parse(localStorage.getItem("cartGoods"));
+                cartGoods.push(item)
+                localStorage.setItem("cartGoods", JSON.stringify(cartGoods));
+            } else {
+                var cartGoods=[];
+                cartGoods.push(item)
+                localStorage.setItem("cartGoods", JSON.stringify(cartGoods));
+            }
+            this.$confirm('加入购物车公告，去购物车结算?', '提示', {
+                confirmButtonText: '前往购物车',
+                cancelButtonText: '留在当前页',
+                type: 'success'
+            }).then(() => {
+                
+            }).catch(() => {
+
+            });
+        }    
     },
     components: {
     },
@@ -304,7 +348,7 @@ export default {
             }
             .choose-speci{
                 width: 100%;
-                margin-top: 20px;
+                
                 td{
                     padding: 10px;
                 }
@@ -343,5 +387,20 @@ export default {
                 border: 2px solid #b4a078;
             }
         }
-    }    
+    }   
+    .goods-skin{
+        margin-top: 20px;
+        position: relative;
+        .good-error{
+            background: #f5f5f5;
+            padding: 5px 10px;
+        }
+        .close{
+            font-weight: bold;
+            color: #fe4343;
+        }
+    } 
+    .goodserror{
+        border: 2px solid #fe4343;
+    }
 </style>

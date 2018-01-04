@@ -44,7 +44,7 @@
                         <td>
                             <div class="color-list">
                                 <a class="item" v-for="(item,index) in itemProperty[0].values" 
-                                    @click="colorClick(item.propertyValueId)"
+                                    @click="colorClick(item.propertyValueId,item.remark)"
                                     v-bind:style="{ background: item.valueTitle}"
                                     v-bind:class="{active:item.propertyValueId==colorId}"
                                     href="javascript:;" >
@@ -59,7 +59,7 @@
                         </td>
                         <td>
                             <div class="size-list">
-                                <a @click="sizeClick(item.propertyValueId)" 
+                                <a @click="sizeClick(item.propertyValueId,item.valueTitle)" 
                                 v-for="(item,index) in itemProperty[1].values" 
                                 v-bind:class="{active:item.propertyValueId==sizeId}"
                                 class="item" 
@@ -103,7 +103,9 @@ export default {
             sizeId:'',
             num1:'',
             errorShow:false,
-            catNum:''
+            catNum:'',
+            colorRemark:"",
+            sizeRemark:"",
         }
     },
     watch:{
@@ -144,11 +146,13 @@ export default {
 	        });
              
         },
-        colorClick:function(e){
+        colorClick:function(e,f){
             this.colorId=e;
+            this.colorRemark=f
         },
-        sizeClick:function(e){
+        sizeClick:function(e,f){
             this.sizeId=e;
+            this.sizeRemark=f
         },
         searchGoods:function(){
             var searchVal=this.colorId+','+this.sizeId;
@@ -164,7 +168,7 @@ export default {
 	        });
         },
         addGoods(){
-            if(this.colorId==''||this.colorId==''){
+            if(this.colorId==''||this.sizeId==''){
                 this.errorShow=true;
                 return false;
             }
@@ -178,7 +182,11 @@ export default {
             item.price=this.goodDetail.item.price
             item.priceTotal=this.num1*this.goodDetail.item.price;
             item.itemTitle=this.goodDetail.item.title;
-
+            item.sku=this.colorId+','+this.sizeId;   
+            item.colorRemark=this.colorRemark; 
+            item.sizeRemark=this.sizeRemark;    
+            item.supplierName=this.goodDetail.supplier.name;
+            item.picUrl=this.goodDetail.item.picUrl;
             if (localStorage.getItem("cartGoods")) {
                 var cartGoods=JSON.parse(localStorage.getItem("cartGoods"));
                 cartGoods.push(item)

@@ -6,6 +6,7 @@ import GoodsDetail from '@/components/Goods/goodsDetail'
 import Index from '@/components/Index/Index'
 
 import orderHistory from '@/components/order/orderHistory'
+import shoppingCart from '@/components/order/shoppingCart'
 Vue.use(Router)
 
 export default new Router({
@@ -29,6 +30,10 @@ export default new Router({
     {
     	path: '/orderHistory',
       component: orderHistory
+    },
+    {
+    	path: '/shoppingCart',
+      component: shoppingCart
     }
   ]
 })

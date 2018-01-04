@@ -10,7 +10,7 @@
                             </div>
                             <div class="our-order">
                                 <router-link :to="{path:'/orderHistory'}" title="我的订单">我的订单</router-link>
-                                <a title="我的订单">购物车<span v-html="cartGoods.length"></span></a>
+                                <router-link :to="{path:'/shoppingCart'}" style="position:relative" title="购物车"><i style="padding-right:5px;font-size:18px;vertical-align: middle;" class="iconfont">&#xe60a;</i>购物车<span v-if="cartGoods" v-html="cartGoods.length" class="good-length"></span></router-link>
                             </div>
                         </div>
                     </div>			
@@ -185,7 +185,21 @@ export default {
         }
     }
 }
-
+.good-length{
+    padding: 0 3px;
+    min-width: 14px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 10px;
+    font-size: 12px;
+    background: #fe4343;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    position: absolute;
+    top: 3px;
+    right: -8px;
+}
 .usa-meau{
     width: 100%;
     min-width: 1200px;
@@ -266,5 +280,8 @@ export default {
 .active{
     color: #b4a078!important;
     border-bottom: 3px solid #b4a078
+}
+.router-link-active{
+    color: #fff !important;
 }
 </style>

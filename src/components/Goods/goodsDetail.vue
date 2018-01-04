@@ -178,16 +178,18 @@ export default {
             item.price=this.goodDetail.item.price
             item.priceTotal=this.num1*this.goodDetail.item.price;
             item.itemTitle=this.goodDetail.item.title;
-            this.$store.state.orderList=this.$store.state.orderList.push(item);
 
             if (localStorage.getItem("cartGoods")) {
                 var cartGoods=JSON.parse(localStorage.getItem("cartGoods"));
                 cartGoods.push(item)
                 localStorage.setItem("cartGoods", JSON.stringify(cartGoods));
+                this.$store.state.orderList=cartGoods;
             } else {
                 var cartGoods=[];
                 cartGoods.push(item)
+                
                 localStorage.setItem("cartGoods", JSON.stringify(cartGoods));
+                this.$store.state.orderList=cartGoods;
             }
             this.$confirm('加入购物车公告，去购物车结算?', '提示', {
                 confirmButtonText: '前往购物车',

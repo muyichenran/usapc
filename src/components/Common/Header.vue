@@ -62,7 +62,8 @@ export default {
             return this.$route.query.supId;
         },
         cartGoods () {
-            return JSON.parse(localStorage.getItem("cartGoods"));
+            this.$store.state.orderList=JSON.parse(localStorage.getItem("cartGoods"));
+            return this.$store.state.orderList;
         }
     },
     watch:{

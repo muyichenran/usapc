@@ -4,13 +4,16 @@
                     <div class="usa-h-center center1200 clearfix">
                         <div class="web-name">公司名称</div>							
                         <div class="usa-h-right">
-                            <div class="sign-login">
+                            <div v-if="!login" class="sign-login">
                                 <router-link :to="{path:'/Login',query:{active:'login'}}" title="登陆">登陆</router-link>
                                 <router-link :to="{path:'/Login',query:{active:'sign'}}" title="注册">注册</router-link>
                             </div>
+                            <div v-if="login" class="sign-login">
+                                <a @click="exit()" title="退出">退出</a>
+                            </div>
                             <div class="our-order">
                                 <router-link :to="{path:'/orderHistory'}" title="我的订单">我的订单</router-link>
-                                <router-link :to="{path:'/shoppingCart'}" style="position:relative" title="购物车"><i style="padding-right:5px;font-size:18px;vertical-align: middle;" class="iconfont">&#xe60a;</i>购物车<span v-if="cartGoods" v-html="cartGoods.length" class="good-length"></span></router-link>
+                                <router-link :to="{path:'/shoppingCart'}" style="position:relative" title="购物车"><i style="padding-right:5px;font-size:18px;vertical-align: middle;" class="iconfont">&#xe60a;</i>购物车<span v-if="cartGoods&&cartGoods.length!=0" v-html="cartGoods.length" class="good-length"></span></router-link>
                             </div>
                         </div>
                     </div>			
@@ -54,7 +57,8 @@ export default {
         return {
             catList:[],
             supList:[],
-            active:false
+            active:false,
+            login:localStorage.getItem("login") || ''
         }
     },
     computed:{
@@ -62,7 +66,6 @@ export default {
             return this.$route.query.supId;
         },
         cartGoods () {
-            this.$store.state.orderList=JSON.parse(localStorage.getItem("cartGoods"));
             return this.$store.state.orderList;
         }
     },
@@ -76,6 +79,19 @@ export default {
         },
     },
     methods:{
+        exit(){
+            var url='http://luxma.helpyoulove.com/user/logout';
+	        var vm=this;
+	        this.$http.post(url).then(response => {   
+	            if(response.data.status==200){
+                    this.$cookie.set('login',false);
+                    this.$router.replace("/Login")
+				}else{
+					this.$message.error(response.data.msg);
+				}
+	        }, response => {
+	        });
+        },
         bodyReady:function(){
             var url='http://luxma.helpyoulove.com/pc/item/cat/get/list';
 	        var vm=this;
@@ -102,11 +118,25 @@ export default {
 	        });
             
         },
-        
+        findUser(){
+            var url='http://luxma.helpyoulove.com/user/getUserInfo';
+	        var vm=this;
+	        this.$http.post(url).then(response => {   
+	            if(response.data.status==200){
+					this.userInfo=response.data.data;
+				}else{
+					this.$message.error(response.data.msg);
+				}
+	        }, response => {
+	        });
+        }
     },
     created(){
     	this.bodyReady();
         this.supReady();
+        if(this.login){
+            this.findUser()
+        }
     }
 }
 </script>
@@ -281,7 +311,7 @@ export default {
     color: #b4a078!important;
     border-bottom: 3px solid #b4a078
 }
-.router-link-active{
+.usa-header .router-link-active{
     color: #fff !important;
 }
 </style>

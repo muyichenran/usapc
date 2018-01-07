@@ -6,7 +6,7 @@ Vue.use(cookie);
 // 需要维护的状态
 const state = {
   common:{},  
-  orderList:[]
+  orderList:JSON.parse(localStorage.getItem("cartGoods"))
 };
 var vm=this;
 const mutations = {

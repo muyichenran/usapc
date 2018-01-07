@@ -12,12 +12,20 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
-      component: Login
+      path: '/Login',
+      component: Login,
+      
     },
     {
-      path: '/Index',
-      component: Index
+      path: '/',
+      component: Index,
+      children:[{
+        path: '/',
+        redirect: '/Index',
+      }, {
+        path: '/Index',
+        component: Index
+      }]
     },
     {
       path: '/GoodsDetail',

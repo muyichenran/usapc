@@ -182,9 +182,8 @@ export default {
             item.price=this.goodDetail.item.price
             item.priceTotal=this.num1*this.goodDetail.item.price;
             item.itemTitle=this.goodDetail.item.title;
-            item.sku=this.colorId+','+this.sizeId;   
-            item.colorRemark=this.colorRemark; 
-            item.sizeRemark=this.sizeRemark;    
+            item.skuProperties=this.colorId+','+this.sizeId;   
+            item.itemType='颜色：'+this.colorRemark+'<br/>尺寸：'+this.sizeRemark
             item.supplierName=this.goodDetail.supplier.name;
             item.picUrl=this.goodDetail.item.picUrl;
             if (localStorage.getItem("cartGoods")) {

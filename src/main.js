@@ -17,13 +17,11 @@ Vue.config.productionTip = false
 Vue.http.options.credentials = true
 Vue.http.options.xhr = {withCredentials: true}
 router.beforeEach(({meta, path}, from, next) => {
-    alert(cookie.get('JSESSIONID'))
+
     if(cookie.get('JSESSIONID')==null||cookie.get('JSESSIONID')==undefined){
-      alert('1')
       if(path=="/login"||path=="/Login"){
         next()
-      }else{
-        
+      }else{       
         next({
           path: '/Login'
         })

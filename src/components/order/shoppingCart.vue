@@ -77,7 +77,12 @@ export default {
             var url='http://luxma.helpyoulove.com/pc/item/get/sku/'+this.orderList[e].itemId+'?properties='+this.orderList[e].skuProperties;;
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
-	            if(response.data.status==200){
+	            if(response.data.status==432){
+                    this.$message.error("登录过期，请重新登录！");
+                    this.$store.state.login=false;
+                    localStorage.setItem("login", false);
+                    this.$router.replace("/Login")
+                }else if(response.data.status==200){
 					this.catNum=response.data.data.quantity;
 					if(this.orderList[e].num>this.catNum){
 						this.$message.error('库存不足');
@@ -123,7 +128,12 @@ export default {
 				var url='http://luxma.helpyoulove.com/pc/item/get/sku/'+this.orderList[i].itemId+'?properties='+this.orderList[i].skuProperties;;
 				var vm=this;
 				this.$http.post(url).then(response => {   
-					if(response.data.status==200){
+					if(response.data.status==432){
+						this.$message.error("登录过期，请重新登录！");
+						this.$store.state.login=false;
+						localStorage.setItem("login", false);
+						this.$router.replace("/Login")
+					}else if(response.data.status==200){
 						this.catNum=response.data.data.quantity;
 						if(this.orderList[i].num>this.catNum){
 				
@@ -147,8 +157,17 @@ export default {
 								var url='http://luxma.helpyoulove.com/pc/order/insert';
 								var vm=this;
 								this.$http.post(url,obj).then(response => {   
-									if(response.data.status==200){
-										
+									if(response.data.status==432){
+										this.$message.error("登录过期，请重新登录！");
+										this.$store.state.login=false;
+										localStorage.setItem("login", false);
+										this.$router.replace("/Login")
+									}else  if(response.data.status==200){
+										this.$message.success("购买成功");
+										this.orderList==[]
+										this.$store.state.orderList=this.orderList;
+										localStorage.setItem("cartGoods", JSON.stringify(this.orderList));
+										this.$router.push({path:'/orderHistory'})
 									}else{
 										this.$message.error(response.data.msg);
 									}

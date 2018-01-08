@@ -203,7 +203,7 @@ export default {
                 cancelButtonText: '留在当前页',
                 type: 'success'
             }).then(() => {
-                
+                this.$router.push({path:'/shoppingCart'})
             }).catch(() => {
 
             });

@@ -89,12 +89,20 @@ export default {
 		bodyReady:function(){
 			var url='http://luxma.helpyoulove.com/pc/order/getOrderList'+this.currentPage+'?status='+this.status+'&stage='+this.pageSize;
 			var vm=this;
-			this.$http.post(url).then(response => {   
-				this.orderList=response.data.data.rows;
-				this.total=response.data.data.total;
-				if(this.total<10){
-					this.pageShow=false
-				}
+			this.$http.post(url).then(response => {
+				if(response.data.status==432){
+                    this.$message.error("登录过期，请重新登录！");
+                    this.$store.state.login=false;
+                    localStorage.setItem("login", false);
+                    this.$router.replace("/Login")
+                }else  if(response.data.status==200){
+					this.orderList=response.data.data.rows;
+					this.total=response.data.data.total;
+					if(this.total<10){
+						this.pageShow=false
+					}
+				}   
+				
 			}, response => {
 			});
 		},
@@ -130,7 +138,7 @@ export default {
 	text-align: center;
 }
 .search-top1{
-	width: 250px;
+	width: 252px;
 	float: left;
 	.el-button{
 		color: #97a8be;

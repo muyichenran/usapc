@@ -95,7 +95,12 @@ export default {
             var url='http://luxma.helpyoulove.com/pc/item/searchByCatId/'+this.curPage+'?stage='+this.pageSize+'&catId='+this.catId+'&orderType='+this.orderType+'&order='+this.order;
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
-	            if(response.data.status==200){
+	            if(response.data.status==432){
+                    this.$message.error("登录过期，请重新登录！");
+                    this.$store.state.login=false;
+                    localStorage.setItem("login", false);
+                    this.$router.replace("/Login")
+                }else  if(response.data.status==200){
                     this.goodList=response.data.data.rows;
                     this.total=response.data.data.total;
 				}else{
@@ -121,7 +126,12 @@ export default {
             var url='http://luxma.helpyoulove.com/property/getSearchValue/'+this.catId;
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
-	            if(response.data.status==200){
+	            if(response.data.status==432){
+                    this.$message.error("登录过期，请重新登录！");
+                    this.$store.state.login=false;
+                    localStorage.setItem("login", false);
+                    this.$router.replace("/Login")
+                }else  if(response.data.status==200){
                     this.searchValueList=response.data.data;
                     for(var i in this.searchValueList){
                         if(this.searchValueList[i].property.isSearch){

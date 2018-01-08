@@ -14,7 +14,32 @@ Vue.use(cookie);
 Vue.use(ElementUI)
 Vue.use(VueResource);
 Vue.config.productionTip = false
-
+Vue.http.options.credentials = true
+Vue.http.options.xhr = {withCredentials: true}
+router.beforeEach(({meta, path}, from, next) => {
+    alert(cookie.get('JSESSIONID'))
+    if(cookie.get('JSESSIONID')==null||cookie.get('JSESSIONID')==undefined){
+      alert('1')
+      if(path=="/login"||path=="/Login"){
+        next()
+      }else{
+        
+        next({
+          path: '/Login'
+        })
+      }
+    }else{
+      alert('2')
+     
+      if(path=="/login"||path=="/Login"){
+        next({
+          path: '/Index'
+        })
+      }else{
+        next()
+      }
+    }    
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

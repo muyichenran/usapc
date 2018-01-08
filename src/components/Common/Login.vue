@@ -26,7 +26,7 @@
 		  	<table class="login">
 		  		<tr>
 		  			<td align="right" width="100" class="td-title">
-		  				账号
+		  				登录账号
 		  			</td>
 		  			<td>
 		  				<el-input v-model="sign.username"  placeholder="请输入内容"></el-input>
@@ -46,6 +46,14 @@
 		  			</td>
 		  			<td>
 		  				<el-input v-model="sign.password2" type="password"  placeholder="请输入密码"></el-input>
+		  			</td>
+		  		</tr>
+				<tr>
+		  			<td align="right" width="100" class="td-title">
+		  				昵称
+		  			</td>
+		  			<td>
+		  				<el-input v-model="sign.name"  placeholder="请输入内容"></el-input>
 		  			</td>
 		  		</tr>
 		  		<tr>
@@ -80,7 +88,8 @@ export default {
 	        var vm=this;
 	        this.$http.post(url,vm.login).then(response => {   
 	            if(response.data.status==200){
-					this.$cookie.set('login', true)
+					this.$store.state.login=true;
+					localStorage.setItem("login", true);
 					this.$message.success('登录成功，正在跳转……');
 					var vm=this;
 					this.sign={};
@@ -95,8 +104,8 @@ export default {
 	        });
 	  	},
 	  	goSign:function(){
-			if(this.sign.username==''||this.sign.password==''||this.sign.username==null||this.sign.password==null){
-				this.$message.error('用户名、密码不得为空');
+			if(this.sign.username==''||this.sign.password==''||this.sign.username==null||this.sign.password==null||this.sign.name==null){
+				this.$message.error('用户名、密码、昵称不得为空');
 				return false;
 			}
 			if(this.sign.password!=this.sign.password2){

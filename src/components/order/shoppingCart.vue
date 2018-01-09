@@ -186,7 +186,7 @@ export default {
 			}
 		},
 		goGoods(e){
-			this.$router.push({path:'/GoodsDetail',query: { id: e}})
+			this.$router.push({path:'/GoodsDetail',query: {Id: e}})
 		}
     },
     created(){

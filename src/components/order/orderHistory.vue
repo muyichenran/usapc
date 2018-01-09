@@ -4,8 +4,8 @@
 			<div class="search-top1">
 				<el-select v-model="status" slot="prepend" placeholder="请选择">
 					<el-option label="全部订单" value=""></el-option>
-					<el-option label="已完成订单" value="1"></el-option>
-					<el-option label="未完成订单" value="2"></el-option>
+					<el-option label="已完成订单" value="2"></el-option>
+					<el-option label="未完成订单" value="1"></el-option>
 				</el-select>
 				<el-button @click="searchStatus()" slot="append" icon="search"></el-button>
 			</div>
@@ -14,17 +14,16 @@
             <div v-for="(item,index) in orderList" class="order-item">
 				<div class="order-top clearfix">
 					<span>订单编号:</span>{{item.orderId}}
-					<span>下单时间：</span>{{item.createTime}}
-					<span>总金额：</span><i class="money">{{item.payment}}</i>
-					<span v-if="item.status==1" class="f-r">已完成</span>
-					<span v-else class="f-r">未完成</span>
+					<span>下单时间：</span>{{item.createTime |formatTime}}
+					<span>总金额：</span><i class="money">${{item.payment}}</i>
+					<span v-if="item.status==2" class="f-r" style="color: #409eff;">已完成</span>
+					<span v-if="item.status==1" class="f-r" style="color: #f56c6c;">未完成</span>
 					
 				</div>
 				<table class="order-table">
 					<thead>
 						<tr>
-							<td width="100">ID</td>
-							<td width="250">Name</td>
+							<td width="450">GoodsInfo</td>
 							<td width="100">Num</td>
 							<td width="120">Price</td>
 							<td>Price Total</td>
@@ -32,11 +31,17 @@
 					</thead>
 					<tbody>
 						<tr v-for="(item1,index) in item.items">
-							<td>{{item1.itemId}}</td>
-							<td>{{item1.itemTitle}}</td>
+							<td>
+								<div class="goods-info" @click="goGoods(item1.itemId)">
+									<img class="img" :src="item1.picUrl">
+									<p class="title">{{item1.itemTitle}}</p>
+								</div>
+								<div class="goods-size" v-html="item1.itemType">
+								</div>
+							</td>
 							<td>{{item1.num}}</td>
-							<td>{{item1.price}}</td>
-							<td>{{item1.priceTotal}}</td>
+							<td>${{item1.price}}</td>
+							<td>${{item1.priceTotal}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -108,6 +113,9 @@ export default {
 		searchStatus:function(){
 			this.bodyReady();
 		},
+		goGoods(e){
+			this.$router.push({path:'/GoodsDetail',query: {Id: e}})
+		}
     },
     created(){
 		this.bodyReady();
@@ -189,6 +197,26 @@ export default {
 				}
 			}
 		}
+	}
+}
+.goods-info{
+	width: 300px;
+	float: left;
+	cursor: pointer;
+	margin-right: 15px;
+	.img{
+		width: 100px;
+		height: 100px;
+		float: left;
+		margin-right: 8px;
+	}
+	.title{
+		font-size:14px
+	}
+}
+.goods-size{
+	p{
+		line-height: 24px
 	}
 }
 </style>

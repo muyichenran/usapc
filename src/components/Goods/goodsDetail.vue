@@ -141,7 +141,11 @@ export default {
             var url='http://luxma.helpyoulove.com/pc/item/get/'+this.goodId;
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
-	            if(response.data.status==200){
+	            if(response.data.status==432){
+                    this.$message.error("登录过期，请重新登录！");
+                    this.$cookie.delete('userLogin');this.$store.state.userLogin=''
+                    this.$router.replace("/Login")
+                }else  if(response.data.status==200){
                     this.goodDetail=response.data.data;
                     this.itemProperty=response.data.data.itemProperty;
                     this.showPicUrl=this.goodDetail.item.picList[0];
@@ -165,7 +169,11 @@ export default {
             var url='http://luxma.helpyoulove.com/pc/item/get/sku/'+this.goodId+'?properties='+searchVal;;
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
-	            if(response.data.status==200){
+	            if(response.data.status==432){
+                    this.$message.error("登录过期，请重新登录！");
+                    this.$cookie.delete('userLogin');this.$store.state.userLogin=''
+                    this.$router.replace("/Login")
+                }else  if(response.data.status==200){
                     this.catNum=response.data.data.quantity;
 				}else{
 					this.$message.error(response.data.msg);

@@ -7,15 +7,16 @@ Vue.use(cookie);
 const state = {
   common:{},  
   orderList:JSON.parse(localStorage.getItem("cartGoods")),
+  userLogin:''
 };
 var vm=this;
 const mutations = {
   // 登陆
-  LOG_IN(state, common){
-      state.common=common;
+  LOG_IN(state, userLogin){
+      state.userLogin=userLogin;
   },
   LOG_OFF(state) {
-    state.common='';
+    state.userLogin='';
     // cookie.delete('userId', {domain: 'helpyoulove.com'});
     // cookie.delete('token', {domain: 'helpyoulove.com'});
   },

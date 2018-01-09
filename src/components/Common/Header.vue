@@ -59,7 +59,7 @@ export default {
             catList:[],
             supList:[],
             active:false,
-            userInfo:{}
+            userInfo:{},
         }
     },
     computed:{
@@ -70,7 +70,7 @@ export default {
             return this.$store.state.orderList;
         },
         login(){
-            return this.$cookie.get('JSESSIONID') 
+            return this.$store.state.userLogin;
         }
     },
     watch:{
@@ -81,6 +81,13 @@ export default {
               }
             }
         },
+        login(){
+            if(this.login){
+                this.bodyReady();
+                this.supReady();
+                this.findUser()
+            }
+        }
     },
     methods:{
         exit(){
@@ -89,10 +96,10 @@ export default {
 	        this.$http.post(url).then(response => {
 	            if(response.data.status==432){
                     this.$message.error("登录过期，请重新登录！");
-                    this.$cookie.delect('JSESSIONID', {domain: 'helpyoulove.com'})
+                    this.$cookie.delete('userLogin');this.$store.state.userLogin='';
                     this.$router.replace("/Login")
                 }else if(response.data.status==200){
-                    this.$cookie.delect('JSESSIONID', {domain: 'helpyoulove.com'})
+                    this.$cookie.delete('userLogin');this.$store.state.userLogin=''
                     this.$router.replace("/Login")
 				}else{
 					this.$message.error(response.data.msg);
@@ -106,8 +113,7 @@ export default {
 	        this.$http.post(url).then(response => {   
                 if(response.data.status==432){
                     this.$message.error("登录过期，请重新登录！");
-                    this.$store.state.login=false;
-                    localStorage.setItem("login", false);
+                    this.$cookie.delete('userLogin');this.$store.state.userLogin=''
                     this.$router.replace("/Login")
                 }else if(response.data.status==200){
 					this.catList=response.data.data;

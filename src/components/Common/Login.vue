@@ -88,8 +88,8 @@ export default {
 	        var vm=this;
 	        this.$http.post(url,vm.login).then(response => {   
 	            if(response.data.status==200){
-					this.$store.state.login=true;
-					localStorage.setItem("login", true);
+					this.$cookie.set('userLogin',true)
+					this.$store.state.userLogin=true;
 					this.$message.success('登录成功，正在跳转……');
 					var vm=this;
 					this.sign={};

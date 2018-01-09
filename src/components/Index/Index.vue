@@ -61,12 +61,9 @@ export default {
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 				if(response.data.status==432){
-					this.$message.error(response.data.msg);
-					var vm=this;
-					this.$cookie.set('login', false)
-					setTimeout(() => {
-						vm.$router.push({path:'/Login'})
-					}, 1000);
+					this.$message.error("登录过期，请重新登录！");
+                    this.$cookie.delete('userLogin');this.$store.state.userLogin=''
+                    this.$router.replace("/Login")
 				}else if(response.data.status==200){
 					this.obj=response.data.data;
 					

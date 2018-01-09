@@ -106,8 +106,7 @@ export default {
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==432){
                     this.$message.error("登录过期，请重新登录！");
-                    this.$store.state.login=false;
-                    localStorage.setItem("login", false);
+                    this.$cookie.delete('userLogin');this.$store.state.userLogin=''
                     this.$router.replace("/Login")
                 }else  if(response.data.status==200){
                     this.goodList=response.data.data.rows;

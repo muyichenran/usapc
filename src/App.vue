@@ -29,7 +29,14 @@ export default {
         },
     },   
     created(){
-    	
+    	if(this.$store.state.userLogin==undefined||this.$store.state.userLogin==null||this.$store.state.userLogin==""){
+            var userLogin='';
+            userLogin=this.$cookie.get('userLogin');
+            this.$store.commit('LOG_IN',userLogin);
+            
+        }else{
+            
+        }
     }
 }
 </script>

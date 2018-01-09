@@ -106,7 +106,13 @@ export default {
             catNum:'',
             colorRemark:"",
             sizeRemark:"",
+            copy:false
         }
+    },
+    computed:{
+        cartGoods () {
+            return this.$store.state.orderList;
+        },
     },
     watch:{
 		catId(val){
@@ -186,15 +192,30 @@ export default {
             item.itemType='颜色：'+this.colorRemark+'<br/>尺寸：'+this.sizeRemark
             item.supplierName=this.goodDetail.supplier.name;
             item.picUrl=this.goodDetail.item.picUrl;
-            if (localStorage.getItem("cartGoods")) {
-                var cartGoods=JSON.parse(localStorage.getItem("cartGoods"));
-                cartGoods.push(item)
+            if (this.cartGoods) {
+                var cartGoods=this.cartGoods;
+                for(var i in cartGoods){
+                    if(cartGoods[i].itemId==item.itemId&&cartGoods[i].skuProperties==item.skuProperties){
+                        this.copy=true;
+                        cartGoods[i].num=cartGoods[i].num + item.num;
+                        cartGoods[i].priceTotal=cartGoods[i].num*cartGoods[i].price;
+                        break;
+                    }else{
+
+                    }
+                }
+                if(this.copy){
+                    
+                }else{
+                    cartGoods.push(item)
+                }
+                
                 localStorage.setItem("cartGoods", JSON.stringify(cartGoods));
                 this.$store.state.orderList=cartGoods;
             } else {
                 var cartGoods=[];
                 cartGoods.push(item)
-                
+                console.log(cartGoods)
                 localStorage.setItem("cartGoods", JSON.stringify(cartGoods));
                 this.$store.state.orderList=cartGoods;
             }

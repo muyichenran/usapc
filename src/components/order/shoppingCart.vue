@@ -16,7 +16,7 @@
 					<tbody>
 						<tr v-for="(item,index) in orderList" v-bind:class="{ errorgoods: item.error }" >
 							<td>
-								<div class="goods-info">
+								<div class="goods-info" @click="goGoods(item.itemId)">
 									<img class="img" :src="item.picUrl">
 									<p class="title">{{item.itemTitle}}</p>
 								</div>
@@ -162,8 +162,8 @@ export default {
 									}else  if(response.data.status==200){
 										this.$message.success("购买成功");
 										this.orderList==[]
-										this.$store.state.orderList=this.orderList;
-										localStorage.setItem("cartGoods", JSON.stringify(this.orderList));
+										this.$store.state.orderList=[];
+										localStorage.removeItem("cartGoods");
 										this.$router.push({path:'/orderHistory'})
 									}else{
 										this.$message.error(response.data.msg);
@@ -184,6 +184,9 @@ export default {
 			for(var i in this.orderList){
 				this.payment=this.payment+this.orderList[i].priceTotal;
 			}
+		},
+		goGoods(e){
+			this.$router.push({path:'/GoodsDetail',query: { id: e}})
 		}
     },
     created(){
@@ -265,6 +268,7 @@ export default {
 .goods-info{
 	width: 300px;
 	float: left;
+	cursor: pointer;
 	margin-right: 15px;
 	.img{
 		width: 100px;

@@ -87,7 +87,7 @@ export default {
 		},
 
 		bodyReady:function(){
-			var url='http://luxma.helpyoulove.com/pc/order/getOrderList'+this.currentPage+'?status='+this.status+'&stage='+this.pageSize;
+			var url='http://luxma.helpyoulove.com/pc/order/getOrderList?page='+this.currentPage+'&status='+this.status+'&stage='+this.pageSize;
 			var vm=this;
 			this.$http.post(url).then(response => {
 				if(response.data.status==432){

@@ -37,6 +37,10 @@ export default {
         }else{
             
         }
+        if(localStorage.getItem("cartGoods")){
+            var orderList=JSON.parse(localStorage.getItem("cartGoods"));
+            this.$store.commit('cart_Goods',orderList);
+        }
     }
 }
 </script>

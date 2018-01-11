@@ -86,7 +86,7 @@ export default {
 					if(this.orderList[e].num>this.catNum){
 						this.$message.error('库存不足');
 						this.orderList[e].error=true;
-						// this.orderList[e].num=this.catNum;
+						this.orderList[e].num=this.catNum;
 						this.orderList[e].onlynum=this.catNum;
 						this.orderList[e].priceTotal=this.orderList[e].price*this.orderList[e].num;
 					}else{
@@ -139,7 +139,7 @@ export default {
 							this.$message.error('库存不足');
 							this.orderList[i].error=true;
 							this.orderList[i].onlynum=this.catNum;
-							// this.orderList[i].num=this.catNum;
+							this.orderList[i].num=this.catNum;
 							this.orderList[i].priceTotal=this.orderList[i].price*this.orderList[i].num;
 						}else{
 							// this.orderList[i].priceTotal=this.orderList[i].price*this.orderList[i].num;

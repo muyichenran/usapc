@@ -116,7 +116,7 @@ export default {
 				this.$message.error('邀请码不得为空');
 				return false;
 			}
-	  		var url='http://luxma.helpyoulove.com/user/register?'+this.sign.registerCode;
+	  		var url='http://luxma.helpyoulove.com/user/register?registerCode='+this.sign.registerCode;
 	        var vm=this;
 	        this.$http.post(url,vm.sign).then(response => {   
 	            if(response.data.status==200){

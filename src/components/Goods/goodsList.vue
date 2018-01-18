@@ -97,9 +97,9 @@ export default {
         },
         bodyReady:function(){
             if(this.supId){
-                var url='http://luxma.helpyoulove.com/pc/item/searchBySupplierId/'+this.curPage+'?stage='+this.pageSize+'&supplierId='+this.supId+'&orderType='+this.orderType+'&order='+this.order;
+                var url='http://ws.luxtonusa.com/pc/item/searchBySupplierId/'+this.curPage+'?stage='+this.pageSize+'&supplierId='+this.supId+'&orderType='+this.orderType+'&order='+this.order;
             }else if(this.catId){
-                var url='http://luxma.helpyoulove.com/pc/item/searchByCatId/'+this.curPage+'?stage='+this.pageSize+'&catId='+this.catId+'&orderType='+this.orderType+'&order='+this.order;
+                var url='http://ws.luxtonusa.com/pc/item/searchByCatId/'+this.curPage+'?stage='+this.pageSize+'&catId='+this.catId+'&orderType='+this.orderType+'&order='+this.order;
             }
             
 	        var vm=this;
@@ -118,7 +118,7 @@ export default {
 	        });  
         },
         // supplierReady:function(){ 
-        //     var url='http://luxma.helpyoulove.com/pc/supplier/index/list';
+        //     var url='http://ws.luxtonusa.com/pc/supplier/index/list';
 	    //     var vm=this;
 	    //     this.$http.post(url).then(response => {   
 	    //         if(response.data.status==200){
@@ -131,7 +131,7 @@ export default {
         // },
 
         searchValueReady:function(){ 
-            var url='http://luxma.helpyoulove.com/property/getSearchValue/'+this.catId;
+            var url='http://ws.luxtonusa.com/property/getSearchValue/'+this.catId;
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==432){
@@ -190,7 +190,7 @@ export default {
         },
 
         searchBySearchIdFun:function(){
-            var url='http://luxma.helpyoulove.com/pc/item/searchBySearchId/'+this.curPage+'?propertyValueId='+this.searchId+'&stage='+this.pageSize+'&catId='+this.catId+'&orderType='+this.orderType+'&order='+this.order;
+            var url='http://ws.luxtonusa.com/pc/item/searchBySearchId/'+this.curPage+'?propertyValueId='+this.searchId+'&stage='+this.pageSize+'&catId='+this.catId+'&orderType='+this.orderType+'&order='+this.order;
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==200){

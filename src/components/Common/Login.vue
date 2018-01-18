@@ -84,7 +84,7 @@ export default {
 	},
     methods:{
 	  	goLogin:function(){
-	  		var url='http://manager.luxtonusa.com/user/login';
+	  		var url='http://ws.luxtonusa.com/user/login';
 	        var vm=this;
 	        this.$http.post(url,vm.login).then(response => {   
 	            if(response.data.status==200){
@@ -116,7 +116,7 @@ export default {
 				this.$message.error('邀请码不得为空');
 				return false;
 			}
-	  		var url='http://manager.luxtonusa.com/user/register?registerCode='+this.sign.registerCode;
+	  		var url='http://ws.luxtonusa.com/user/register?registerCode='+this.sign.registerCode;
 	        var vm=this;
 	        this.$http.post(url,vm.sign).then(response => {   
 	            if(response.data.status==200){

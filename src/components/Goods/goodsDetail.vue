@@ -138,7 +138,7 @@ export default {
 
     methods:{
         bodyReady:function(){
-            var url='http://luxma.helpyoulove.com/pc/item/get/'+this.goodId;
+            var url='http://ws.luxtonusa.com/pc/item/get/'+this.goodId;
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==432){
@@ -166,7 +166,7 @@ export default {
         },
         searchGoods:function(){
             var searchVal=this.colorId+','+this.sizeId;
-            var url='http://luxma.helpyoulove.com/pc/item/get/sku/'+this.goodId+'?properties='+searchVal;;
+            var url='http://ws.luxtonusa.com/pc/item/get/sku/'+this.goodId+'?properties='+searchVal;;
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==432){

@@ -57,7 +57,7 @@ export default {
             this.$router.push({path:'/GoodsDetail',query:{Id:e}})
         },
 		bodyReady(){
-	  		var url='http://luxma.helpyoulove.com/pc/advert/getAll';
+	  		var url='http://ws.luxtonusa.com/pc/advert/getAll';
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 				if(response.data.status==432){

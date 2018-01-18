@@ -74,7 +74,7 @@ export default {
     },
     methods:{
 		checkNumber:function(e){
-            var url='http://luxma.helpyoulove.com/pc/item/get/sku/'+this.orderList[e].itemId+'?properties='+this.orderList[e].skuProperties;;
+            var url='http://ws.luxtonusa.com/pc/item/get/sku/'+this.orderList[e].itemId+'?properties='+this.orderList[e].skuProperties;;
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==432){
@@ -124,7 +124,7 @@ export default {
 		goBuy(){
 			var length=this.orderList.length-1;
 			for(var i in this.orderList){
-				var url='http://luxma.helpyoulove.com/pc/item/get/sku/'+this.orderList[i].itemId+'?properties='+this.orderList[i].skuProperties;;
+				var url='http://ws.luxtonusa.com/pc/item/get/sku/'+this.orderList[i].itemId+'?properties='+this.orderList[i].skuProperties;;
 				var vm=this;
 				this.$http.post(url).then(response => {   
 					if(response.data.status==432){
@@ -152,7 +152,7 @@ export default {
 								var obj={};
 								obj.payment=this.payment;
 								obj.items=this.orderList;
-								var url='http://luxma.helpyoulove.com/pc/order/insert';
+								var url='http://ws.luxtonusa.com/pc/order/insert';
 								var vm=this;
 								this.$http.post(url,obj).then(response => {   
 									if(response.data.status==432){

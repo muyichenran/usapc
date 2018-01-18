@@ -92,7 +92,7 @@ export default {
 		},
 
 		bodyReady:function(){
-			var url='http://manager.luxtonusa.com/pc/order/getOrderList?page='+this.currentPage+'&status='+this.status+'&stage='+this.pageSize;
+			var url='http://ws.luxtonusa.com/pc/order/getOrderList?page='+this.currentPage+'&status='+this.status+'&stage='+this.pageSize;
 			var vm=this;
 			this.$http.post(url).then(response => {
 				if(response.data.status==432){

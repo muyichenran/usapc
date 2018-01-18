@@ -91,7 +91,7 @@ export default {
     },
     methods:{
         exit(){
-            var url='http://manager.luxtonusa.com/user/logout';
+            var url='http://ws.luxtonusa.com/user/logout';
 	        var vm=this;
 	        this.$http.post(url).then(response => {
 	            if(response.data.status==432){
@@ -108,7 +108,7 @@ export default {
 	        });
         },
         bodyReady:function(){
-            var url='http://manager.luxtonusa.com/pc/item/cat/get/list';
+            var url='http://ws.luxtonusa.com/pc/item/cat/get/list';
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
                 if(response.data.status==432){
@@ -125,7 +125,7 @@ export default {
             
         },
         supReady:function(){
-            var url='http://manager.luxtonusa.com/pc/supplier/get/list';
+            var url='http://ws.luxtonusa.com/pc/supplier/get/list';
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==200){
@@ -138,7 +138,7 @@ export default {
             
         },
         findUser(){
-            var url='http://manager.luxtonusa.com/user/getUserInfo';
+            var url='http://ws.luxtonusa.com/user/getUserInfo';
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==200){
@@ -221,7 +221,7 @@ export default {
                         display: inline-block;
                         position: absolute;
                         left: 0;
-                        top: 13px;
+                        top: 22px;
                         height: 16px;
                         border-left: 1px solid #5c5c5c;
                         vertical-align: middle;

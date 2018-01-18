@@ -10,7 +10,7 @@
                             </div>
                             <div v-if="login" class="sign-login">
                                 <a href="javascript:;" title="userInfo.name">{{userInfo.name}}</a>
-                                <a @click="exit()" href="javascript:;"  title="退出">退出</a>
+                                <a @click="exit()" href="javascript:;"  title="Exit">Exit</a>
                             </div>
                             <div v-if="login" class="our-order">
                                 <router-link :to="{path:'/orderHistory'}" title="我的订单">我的订单</router-link>
@@ -23,11 +23,11 @@
 						<div class="center1200">
 							<ul class="meau-list">
 								<li class="meau-list-item">
-									<router-link :to="{path:'/Index'}">首页</router-link>
+									<router-link :to="{path:'/Index'}">Index</router-link>
 								</li>
                                 <li class="meau-list-item supplier-show">
 									<a href="javascript:;" v-bind:class="{ active: supId }">
-                                        供应商
+                                        Vendor
                                         <div class="supplier-blcok">
                                             <div class="supplier-center">
                                                 <ul class="clearfix">
@@ -91,7 +91,7 @@ export default {
     },
     methods:{
         exit(){
-            var url='http://luxma.helpyoulove.com/user/logout';
+            var url='http://manager.luxtonusa.com/user/logout';
 	        var vm=this;
 	        this.$http.post(url).then(response => {
 	            if(response.data.status==432){
@@ -108,7 +108,7 @@ export default {
 	        });
         },
         bodyReady:function(){
-            var url='http://luxma.helpyoulove.com/pc/item/cat/get/list';
+            var url='http://manager.luxtonusa.com/pc/item/cat/get/list';
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
                 if(response.data.status==432){
@@ -125,7 +125,7 @@ export default {
             
         },
         supReady:function(){
-            var url='http://luxma.helpyoulove.com/pc/supplier/get/list';
+            var url='http://manager.luxtonusa.com/pc/supplier/get/list';
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==200){
@@ -138,7 +138,7 @@ export default {
             
         },
         findUser(){
-            var url='http://luxma.helpyoulove.com/user/getUserInfo';
+            var url='http://manager.luxtonusa.com/user/getUserInfo';
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==200){
@@ -178,13 +178,13 @@ export default {
 //  position: fixed;
 //  top: 0;
 //  left: 0;
-    height: 40px;
-    line-height: 40px;
+    height: 60px;
+    line-height: 60px;
     background-color: #000;
     
     z-index: 10;
     .usa-h-center{
-        font-size: 16px;
+        font-size: 18px;
         .web-name{
             float: left;
             position: relative;

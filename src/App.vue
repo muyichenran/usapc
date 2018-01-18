@@ -52,7 +52,7 @@ export default {
         min-width: 1200px;
     }
     .usa-center{
-      padding-top: 100px;  
+      padding-top: 120px;  
       margin: 20px auto;
     }
 </style>

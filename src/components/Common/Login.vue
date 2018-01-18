@@ -1,19 +1,19 @@
 <template>
 	<div class="loginSign">
 		<el-tabs type="border-card" v-model="activeName">
-		  <el-tab-pane label="登陆" name="login">
+		  <el-tab-pane label="Login" name="login">
 		  	<table class="login">
 		  		<tr>
 		  			<td align="right" width="100" class="td-title">
 		  				账号
 		  			</td>
 		  			<td>
-		  				<el-input v-model="login.username" placeholder="请输入内容"></el-input>
+		  				<el-input v-model="login.username" placeholder="请输入账号"></el-input>
 		  			</td>
 		  		</tr>
 		  		<tr>
 		  			<td align="right" width="100" class="td-title">
-		  				密码
+		  				Password
 		  			</td>
 		  			<td>
 		  				<el-input v-model="login.password" type="password"  placeholder="请输入密码"></el-input>
@@ -29,7 +29,7 @@
 		  				登录账号
 		  			</td>
 		  			<td>
-		  				<el-input v-model="sign.username"  placeholder="请输入内容"></el-input>
+		  				<el-input v-model="sign.username"  placeholder="请输入账号"></el-input>
 		  			</td>
 		  		</tr>
 		  		<tr>
@@ -58,7 +58,7 @@
 		  		</tr>
 		  		<tr>
 		  			<td align="right" width="100" class="td-title">
-		  				验证码
+		  				昵称
 		  			</td>
 		  			<td>
 		  				<el-input v-model="sign.registerCode"   placeholder="请输入验证码"></el-input>
@@ -84,7 +84,7 @@ export default {
 	},
     methods:{
 	  	goLogin:function(){
-	  		var url='http://luxma.helpyoulove.com/user/login';
+	  		var url='http://manager.luxtonusa.com/user/login';
 	        var vm=this;
 	        this.$http.post(url,vm.login).then(response => {   
 	            if(response.data.status==200){
@@ -116,7 +116,7 @@ export default {
 				this.$message.error('邀请码不得为空');
 				return false;
 			}
-	  		var url='http://luxma.helpyoulove.com/user/register?registerCode='+this.sign.registerCode;
+	  		var url='http://manager.luxtonusa.com/user/register?registerCode='+this.sign.registerCode;
 	        var vm=this;
 	        this.$http.post(url,vm.sign).then(response => {   
 	            if(response.data.status==200){

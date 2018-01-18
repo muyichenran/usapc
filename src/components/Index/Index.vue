@@ -33,7 +33,7 @@
 								</div>
 								<p class="price">
 									<span>${{item1.price}}</span>
-									<span class="tagName" >Adidas制造商</span>
+									<!-- <span class="tagName" >Adidas制造商</span> -->
 								</p>
 							</div>
 						</a>

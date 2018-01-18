@@ -20,14 +20,14 @@
             <div class="price">
                 <div class="p-box clearfix">
                     <span class="label-1 label">
-                        售价
+                        Price
                     </span>
                     <span class="pri">
                         <span class="do">$</span>{{goodDetail.item.price}}
                     </span>
                 </div>
                 <div v-if="goodDetail.supplier" class="field remark">
-                    <span class="label">供应商</span>
+                    <span class="label">Vendor</span>
                     <span class="remarkCt">{{goodDetail.supplier.name}}</span>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                     </tr>
                     <tr>
                         <td valign="top" class="title" style="padding-top:15px;">
-                            数量
+                            Num
                         </td>
                         <td>
                             <el-input-number :min="1" v-model="num1" style="width:150px"></el-input-number><span v-if="catNum" style="color:#95989a;padding-left:15px;">库存{{catNum}}</span>
@@ -197,8 +197,11 @@ export default {
             item.priceTotal=this.num1*this.goodDetail.item.price;
             item.itemTitle=this.goodDetail.item.title;
             item.skuProperties=this.colorId+','+this.sizeId;   
-            item.itemType='颜色：'+this.colorRemark+'<br/>尺寸：'+this.sizeRemark
-            item.supplierName=this.goodDetail.supplier.name;
+            item.itemType='Color：'+this.colorRemark+'<br/>Size：'+this.sizeRemark
+            if(this.goodDetail.supplier){
+                item.supplierName=this.goodDetail.supplier.name;
+            }
+            
             item.picUrl=this.goodDetail.item.picUrl;
             if (this.cartGoods) {
                 var cartGoods=this.cartGoods;

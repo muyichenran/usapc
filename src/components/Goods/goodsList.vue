@@ -255,12 +255,12 @@ export default {
                     padding: 15px 0;
                     padding-right: 15px;
                     box-sizing: border-box;
-                    width: 60px;
+                    width: 70px;
                     text-align: right;
                 }
                 .item-list{
                     float: left;
-                    width: 1060px;
+                    width: 1030px;
                     overflow: hidden;
                     a{
                         display: inline-block;

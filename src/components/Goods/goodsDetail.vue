@@ -38,7 +38,7 @@
                 </div>
                 <table class="choose-speci">
                     <tr>
-                        <td valign="top"  width="50px" class="title" style="padding-top:25px;">
+                        <td valign="top"  width="60px" class="title" style="padding-top:25px;">
                             {{itemProperty[0].property.title}}
                         </td>
                         <td>

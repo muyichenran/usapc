@@ -17,13 +17,13 @@
 						<tr v-for="(item,index) in orderList" v-bind:class="{ errorgoods: item.error }" >
 							<td>
 								<div class="goods-info" @click="goGoods(item.itemId)">
-									<img class="img" :src="item.picUrl">
+									<!-- <img class="img" :src="item.picUrl"> -->
 									<p class="title">{{item.itemTitle}}</p>
 								</div>
-								<div class="goods-size" v-html="item.itemType">
+								<div class="goods-size" style="font-size:18px;color:#20a0ff" v-html="item.itemType">
 								</div>
 							</td>
-							<td>{{item.price}}</td>
+							<td>{{item.price | toDecimal2}}</td>
 							<td>
 								<el-input-number :min="1" v-model="item.num" @change="checkNumber(index)" style="width:150px"></el-input-number>
 								<p v-if="item.error" class="error-text">
@@ -31,7 +31,7 @@
 								</p>
 							</td>
 							
-							<td>${{item.priceTotal}}</td>
+							<td>${{item.priceTotal  | toDecimal2}}</td>
 							<td>
 								<el-button @click="editCart(index)" type="danger">删除</el-button>
 							</td>
@@ -39,7 +39,7 @@
 					</tbody>
 				</table>
 				<p class="all-money">
-					总金额：${{payment}}
+					总金额：${{payment |toDecimal2}}
 				</p>
 				<p class="go-buy">
 					<el-button @click="goBuy()" type="primary">&nbsp;&nbsp;&nbsp;立即购买&nbsp;&nbsp;&nbsp;</el-button>
@@ -183,6 +183,8 @@ export default {
 			this.payment=0;
 			for(var i in this.orderList){
 				this.payment=this.payment+this.orderList[i].priceTotal;
+				console.log(this.orderList[i].priceTotal)
+				console.log(this.payment)
 			}
 		},
 		goGoods(e){
@@ -266,9 +268,10 @@ export default {
 	}
 }
 .goods-info{
-	width: 300px;
+	width: 270px;
 	float: left;
 	cursor: pointer;
+	    min-height: 80px;
 	margin-right: 15px;
 	.img{
 		width: 100px;

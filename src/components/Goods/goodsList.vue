@@ -242,6 +242,7 @@ export default {
         .m-sortbar{
             overflow: hidden;
             .sortbar-item{
+                font-size: 20px;
                 overflow: hidden;
                 border-bottom: 1px dashed #dedede;
                 line-height: 1;
@@ -255,12 +256,12 @@ export default {
                     padding: 15px 0;
                     padding-right: 15px;
                     box-sizing: border-box;
-                    width: 70px;
+                    width: 100px;
                     text-align: right;
                 }
                 .item-list{
                     float: left;
-                    width: 1030px;
+                    width: 1000px;
                     overflow: hidden;
                     a{
                         display: inline-block;

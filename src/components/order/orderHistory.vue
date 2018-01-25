@@ -33,10 +33,10 @@
 						<tr v-for="(item1,index) in item.items">
 							<td>
 								<div class="goods-info" @click="goGoods(item1.itemId)">
-									<img class="img" :src="item1.picUrl">
+									<!-- <img class="img" :src="item1.picUrl"> -->
 									<p class="title">{{item1.itemTitle}}</p>
 								</div>
-								<div class="goods-size" v-html="item1.itemType">
+								<div class="goods-size" style="font-size:18px;color:#20a0ff" v-html="item.itemType">
 								</div>
 							</td>
 							<td>{{item1.num}}</td>
@@ -200,9 +200,10 @@ export default {
 	}
 }
 .goods-info{
-	width: 300px;
+	width: 270px;
 	float: left;
 	cursor: pointer;
+	    min-height: 80px;
 	margin-right: 15px;
 	.img{
 		width: 100px;

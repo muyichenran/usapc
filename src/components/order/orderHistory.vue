@@ -36,7 +36,7 @@
 									<!-- <img class="img" :src="item1.picUrl"> -->
 									<p class="title">{{item1.itemTitle}}</p>
 								</div>
-								<div class="goods-size" style="font-size:18px;color:#20a0ff" v-html="item.itemType">
+								<div class="goods-size" style="font-size:18px;color:#20a0ff" v-html="item1.itemType">
 								</div>
 							</td>
 							<td>{{item1.num}}</td>
@@ -96,7 +96,7 @@ export default {
 			var vm=this;
 			this.$http.post(url).then(response => {
 				if(response.data.status==432){
-                    this.$message.error("登录过期，请重新登录！");
+                    this.$message.error("Your login has been expired, please re-login！");
                     this.$cookie.delete('userLogin');this.$store.state.userLogin=''
                     this.$router.replace("/Login")
                 }else  if(response.data.status==200){

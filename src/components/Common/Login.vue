@@ -5,10 +5,10 @@
 		  	<table class="login">
 		  		<tr>
 		  			<td align="right" width="100" class="td-title">
-		  				账号
+		  				Account
 		  			</td>
 		  			<td>
-		  				<el-input v-model="login.username" placeholder="请输入账号"></el-input>
+		  				<el-input v-model="login.username" placeholder="Please enter your account"></el-input>
 		  			</td>
 		  		</tr>
 		  		<tr>
@@ -16,56 +16,56 @@
 		  				Password
 		  			</td>
 		  			<td>
-		  				<el-input v-model="login.password" type="password"  placeholder="请输入密码"></el-input>
+		  				<el-input v-model="login.password" type="password"  placeholder="Please enter password"></el-input>
 		  			</td>
 		  		</tr>
 		  	</table>
-		  	<el-button @click="goLogin()" class="go-login" type="primary">登录</el-button>
+		  	<el-button @click="goLogin()" class="go-login" type="primary">Login</el-button>
 		  </el-tab-pane>
-		  <el-tab-pane label="注册" name="sign">
+		  <el-tab-pane label="Register" name="sign">
 		  	<table class="login">
 		  		<tr>
 		  			<td align="right" width="100" class="td-title">
-		  				登录账号
+		  				Login account
 		  			</td>
 		  			<td>
-		  				<el-input v-model="sign.username"  placeholder="请输入账号"></el-input>
+		  				<el-input v-model="sign.username"  placeholder="Please enter your account"></el-input>
 		  			</td>
 		  		</tr>
 		  		<tr>
 		  			<td align="right" width="100" class="td-title">
-		  				密码
+		  				Password
 		  			</td>
 		  			<td>
-		  				<el-input v-model="sign.password" type="password"  placeholder="请输入密码"></el-input>
+		  				<el-input v-model="sign.password" type="password"  placeholder="Please enter password"></el-input>
 		  			</td>
 		  		</tr>
 		  		<tr>
 		  			<td align="right" width="100" class="td-title">
-		  				确认密码
+		  				Confirm password
 		  			</td>
 		  			<td>
-		  				<el-input v-model="sign.password2" type="password"  placeholder="请输入密码"></el-input>
+		  				<el-input v-model="sign.password2" type="password"  placeholder="Please enter password"></el-input>
 		  			</td>
 		  		</tr>
 				<tr>
 		  			<td align="right" width="100" class="td-title">
-		  				昵称
+		  				Nickname
 		  			</td>
 		  			<td>
-		  				<el-input v-model="sign.name"  placeholder="请输入内容"></el-input>
+		  				<el-input v-model="sign.name"  placeholder="Please enter nickname"></el-input>
 		  			</td>
 		  		</tr>
 		  		<tr>
 		  			<td align="right" width="100" class="td-title">
-		  				昵称
+		  				verification number
 		  			</td>
 		  			<td>
-		  				<el-input v-model="sign.registerCode"   placeholder="请输入验证码"></el-input>
+		  				<el-input v-model="sign.registerCode"   placeholder=" Please enter verification number "></el-input>
 		  			</td>
 		  		</tr>
 		  	</table>
-		  	<el-button @click="goSign()" class="go-sign" type="primary">注册</el-button>
+		  	<el-button @click="goSign()" class="go-sign" type="primary">Register</el-button>
 		  </el-tab-pane>
 		</el-tabs>
 	</div>
@@ -90,7 +90,7 @@ export default {
 	            if(response.data.status==200){
 					this.$cookie.set('userLogin',true)
 					this.$store.state.userLogin=true;
-					this.$message.success('登录成功，正在跳转……');
+					this.$message.success('You are login……');
 					var vm=this;
 					this.sign={};
 					setTimeout(() => {
@@ -105,22 +105,22 @@ export default {
 	  	},
 	  	goSign:function(){
 			if(this.sign.username==''||this.sign.password==''||this.sign.username==null||this.sign.password==null||this.sign.name==null){
-				this.$message.error('用户名、密码、昵称不得为空');
+				this.$message.error('user name, password and nickname must be entered');
 				return false;
 			}
 			if(this.sign.password!=this.sign.password2){
-				this.$message.error('两次密码不一致');
+				this.$message.error('Re-enter password doesn’t match original password');
 				return false;
 			}  
 			if(this.sign.registerCode==''){
-				this.$message.error('邀请码不得为空');
+				this.$message.error('invitation code must be entered');
 				return false;
 			}
 	  		var url='http://ws.luxtonusa.com/user/register?registerCode='+this.sign.registerCode;
 	        var vm=this;
 	        this.$http.post(url,vm.sign).then(response => {   
 	            if(response.data.status==200){
-					this.$message.success('注册成功，请登录！');
+					this.$message.success('Please Login');
 					var vm=this;
 					this.sign={};
 					setTimeout(() => {

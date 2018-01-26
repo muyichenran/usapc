@@ -142,7 +142,7 @@ export default {
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==432){
-                    this.$message.error("登录过期，请重新登录！");
+                    this.$message.error("Your login has been expired, please re-login！");
                     this.$cookie.delete('userLogin');this.$store.state.userLogin=''
                     this.$router.replace("/Login")
                 }else  if(response.data.status==200){
@@ -170,7 +170,7 @@ export default {
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==432){
-                    this.$message.error("登录过期，请重新登录！");
+                    this.$message.error("Your login has been expired, please re-login！");
                     this.$cookie.delete('userLogin');this.$store.state.userLogin=''
                     this.$router.replace("/Login")
                 }else  if(response.data.status==200){
@@ -187,7 +187,7 @@ export default {
                 return false;
             }
             if(this.num1>this.catNum){
-                this.$message.error('库存不足，请重新修改库存数量');
+                this.$message.error('low stock availability, please adjust your inventory');
                 return false;
             }
             var item={};
@@ -230,9 +230,9 @@ export default {
                 localStorage.setItem("cartGoods", JSON.stringify(cartGoods));
                 this.$store.state.orderList=cartGoods;
             }
-            this.$confirm('加入购物车公告，去购物车结算?', '提示', {
-                confirmButtonText: '前往购物车',
-                cancelButtonText: '留在当前页',
+            this.$confirm('add to shopping cart notification, complete purchase in shopping cart?', 'Prompt', {
+                confirmButtonText: 'go to shopping cart',
+                cancelButtonText: 'remain on present page',
                 type: 'success'
             }).then(() => {
                 this.$router.push({path:'/shoppingCart'})

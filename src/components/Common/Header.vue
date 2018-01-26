@@ -5,7 +5,7 @@
                         <div class="web-name">公司名称</div>							
                         <div class="usa-h-right">
                             <div v-if="!login" class="sign-login">
-                                <router-link :to="{path:'/Login',query:{active:'login'}}" title="登陆/注册">登陆/注册</router-link>
+                                <router-link :to="{path:'/Login',query:{active:'login'}}" title="Login/Register">Login/Register</router-link>
                                 <!-- <router-link :to="{path:'/Login',query:{active:'sign'}}" title="注册">注册</router-link> -->
                             </div>
                             <div v-if="login" class="sign-login">
@@ -13,8 +13,8 @@
                                 <a @click="exit()" href="javascript:;"  title="Exit">Exit</a>
                             </div>
                             <div v-if="login" class="our-order">
-                                <router-link :to="{path:'/orderHistory'}" title="我的订单">我的订单</router-link>
-                                <router-link :to="{path:'/shoppingCart'}" style="position:relative" title="购物车"><i style="padding-right:5px;font-size:18px;vertical-align: middle;" class="iconfont">&#xe60a;</i>购物车<span v-if="cartGoods&&cartGoods.length!=0" v-html="cartGoods.length" class="good-length"></span></router-link>
+                                <router-link :to="{path:'/orderHistory'}" title="My orders">My orders</router-link>
+                                <router-link :to="{path:'/shoppingCart'}" style="position:relative" title="Shopping cart"><i style="padding-right:5px;font-size:18px;vertical-align: middle;" class="iconfont">&#xe60a;</i>Shopping cart<span v-if="cartGoods&&cartGoods.length!=0" v-html="cartGoods.length" class="good-length"></span></router-link>
                             </div>
                         </div>
                     </div>			
@@ -95,7 +95,7 @@ export default {
 	        var vm=this;
 	        this.$http.post(url).then(response => {
 	            if(response.data.status==432){
-                    this.$message.error("登录过期，请重新登录！");
+                    this.$message.error("Your login has been expired, please re-login！");
                     this.$cookie.delete('userLogin');this.$store.state.userLogin='';
                     this.$router.replace("/Login")
                 }else if(response.data.status==200){
@@ -112,7 +112,7 @@ export default {
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
                 if(response.data.status==432){
-                    this.$message.error("登录过期，请重新登录！");
+                    this.$message.error("Your login has been expired, please re-login！");
                     this.$cookie.delete('userLogin');this.$store.state.userLogin=''
                     this.$router.replace("/Login")
                 }else if(response.data.status==200){

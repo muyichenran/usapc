@@ -6,11 +6,11 @@
 				<table class="order-table">
 					<thead>
 						<tr>
-							<td width="450">商品信息</td>
-							<td width="150">单价</td>
-							<td width="150">数量</td>
-							<td width="150">金额</td>
-							<td>操作</td>
+							<td width="450">product category</td>
+							<td width="150">Price</td>
+							<td width="150">Num</td>
+							<td width="150">Money</td>
+							<td> Operating</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -27,27 +27,27 @@
 							<td>
 								<el-input-number :min="1" v-model="item.num" @change="checkNumber(index)" style="width:150px"></el-input-number>
 								<p v-if="item.error" class="error-text">
-									库存：{{item.onlynum}}
+									inventory ：{{item.onlynum}}
 								</p>
 							</td>
 							
 							<td>${{item.priceTotal  | toDecimal2}}</td>
 							<td>
-								<el-button @click="editCart(index)" type="danger">删除</el-button>
+								<el-button @click="editCart(index)" type="danger">Delect</el-button>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 				<p class="all-money">
-					总金额：${{payment |toDecimal2}}
+					Total Amount：${{payment |toDecimal2}}
 				</p>
 				<p class="go-buy">
-					<el-button @click="goBuy()" type="primary">&nbsp;&nbsp;&nbsp;立即购买&nbsp;&nbsp;&nbsp;</el-button>
+					<el-button @click="goBuy()" type="primary">&nbsp;&nbsp;&nbsp;Buy now&nbsp;&nbsp;&nbsp;</el-button>
 				</p>
 				
 			</div>  
 			<div v-if="orderList==''||orderList==undefined" class="no-list">
-				暂无数据
+				No Data
 			</div>
   		</div>
   </div>
@@ -78,13 +78,13 @@ export default {
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==432){
-                    this.$message.error("登录过期，请重新登录！");
+                    this.$message.error("Your login has been expired, please re-login！");
                     this.$cookie.delete('userLogin');this.$store.state.userLogin=''
                     this.$router.replace("/Login")
                 }else if(response.data.status==200){
 					this.catNum=response.data.data.quantity;
 					if(this.orderList[e].num>this.catNum){
-						this.$message.error('库存不足');
+						this.$message.error('out of inventory');
 						this.orderList[e].error=true;
 						this.orderList[e].num=this.catNum;
 						this.orderList[e].onlynum=this.catNum;
@@ -102,9 +102,9 @@ export default {
             
 		},
 		editCart:function(e){
-			this.$confirm('商品删除后需要重新添加, 是否继续?', '提示', {
-				confirmButtonText: '确定',
-				cancelButtonText: '取消',
+			this.$confirm('Product need to be added after deletion, continue?', 'Prompt', {
+				confirmButtonText: 'Confirm',
+				cancelButtonText: 'Cancel',
 				type: 'warning'
 			}).then(() => {
 				this.orderList.splice(e, 1);
@@ -112,31 +112,34 @@ export default {
 				localStorage.setItem("cartGoods", JSON.stringify(this.orderList));
 				this.$message({
 					type: 'success',
-					message: '删除成功!'
+					message: 'Delect success!'
 				});
 			}).catch(() => {
 				this.$message({
 					type: 'info',
-					message: '已取消删除'
+					message: 'Deleted'
 				});          
 			});
 		},
 		goBuy(){
-			var length=this.orderList.length-1;
-			for(var i in this.orderList){
+			var length=this.orderList.length;
+			var _index=0;
+			
+			for(var i in this.orderList ){
 				var url='http://ws.luxtonusa.com/pc/item/get/sku/'+this.orderList[i].itemId+'?properties='+this.orderList[i].skuProperties;;
 				var vm=this;
 				this.$http.post(url).then(response => {   
 					if(response.data.status==432){
-						this.$message.error("登录过期，请重新登录！");
+						this.$message.error("Your login has been expired, please re-login！");
 						this.$cookie.delete('userLogin');this.$store.state.userLogin=''
 						this.$router.replace("/Login")
 					}else if(response.data.status==200){
 						this.catNum=response.data.data.quantity;
+						
 						if(this.orderList[i].num>this.catNum){
 				
 							this.notGoBuy=true;  
-							this.$message.error('库存不足');
+							this.$message.error('out of inventory');
 							this.orderList[i].error=true;
 							this.orderList[i].onlynum=this.catNum;
 							this.orderList[i].num=this.catNum;
@@ -144,8 +147,8 @@ export default {
 						}else{
 							// this.orderList[i].priceTotal=this.orderList[i].price*this.orderList[i].num;
 						}
-	
-						if(i==length){
+						_index=_index+1;
+						if(_index==length){
 							if(this.notGoBuy){
 								this.notGoBuy=false
 							}else{
@@ -156,11 +159,11 @@ export default {
 								var vm=this;
 								this.$http.post(url,obj).then(response => {   
 									if(response.data.status==432){
-										this.$message.error("登录过期，请重新登录！");
+										this.$message.error("Your login has been expired, please re-login！");
 										this.$cookie.delete('userLogin');this.$store.state.userLogin=''
 										this.$router.replace("/Login")
 									}else  if(response.data.status==200){
-										this.$message.success("购买成功");
+										this.$message.success("Your purchase is complete");
 										this.orderList==[]
 										this.$store.state.orderList=[];
 										localStorage.removeItem("cartGoods");

@@ -4,7 +4,7 @@
             <div v-if="isSearchObj && !supId && isSearchObj.values" class="sortbar-item clearfix">
                 <span class="name" v-if="isSearchObj.property">{{isSearchObj.property.title}}：</span>      
                 <div class="item-list">
-                    <a v-bind:class="{ active: searchId=='' }" @click="styleFind()" href="javascript:;">全部</a>
+                    <a v-bind:class="{ active: searchId=='' }" @click="styleFind()" href="javascript:;">All</a>
                     <a v-for="(item,index) in isSearchObj.values"  @click="styleFind(item.propertyValueId)" v-bind:class="{ active: searchId==item.propertyValueId }"  href="javascript:;">{{item.valueTitle}}</a>
                 </div>  
             </div>
@@ -16,16 +16,16 @@
                 </div>  
             </div> -->
             <div class="sortbar-item clearfix">
-                <span class="name">排序：</span>      
+                <span class="name">Rank：</span>      
                 <div class="item-list">
-                    <a v-bind:class="{ active: orderType=='' }" href="javascript:;" @click="orderFind('','')">默认</a>
-                    <a v-bind:class="{ active: orderType=='price' }" href="javascript:;"  @click="orderFind('price','',priceType)">价格
+                    <a v-bind:class="{ active: orderType=='' }" href="javascript:;" @click="orderFind('','')">Default</a>
+                    <a v-bind:class="{ active: orderType=='price' }" href="javascript:;"  @click="orderFind('price','',priceType)">Price
                         <span class="icon">
                             <i v-bind:class="{ active: priceType==1 }" class="i-a iconfont">&#xe622;</i>
                             <i v-bind:class="{ active: priceType==2 }" class="i-b iconfont">&#xe62c;</i>
                         </span>
                     </a>
-                    <a v-bind:class="{ active: orderType=='create_time' }"  href="javascript:;" @click="orderFind('create_time','ASC')">上架时间<i class="iconfont v-middle" v-bind:class="{ active: orderType=='create_time' }">&#xe767;</i></a>
+                    <a v-bind:class="{ active: orderType=='create_time' }"  href="javascript:;" @click="orderFind('create_time','ASC')">Added date<i class="iconfont v-middle" v-bind:class="{ active: orderType=='create_time' }">&#xe767;</i></a>
                 </div>  
             </div>
         </div>
@@ -105,7 +105,7 @@ export default {
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==432){
-                    this.$message.error("登录过期，请重新登录！");
+                    this.$message.error("Your login has been expired, please re-login！");
                     this.$cookie.delete('userLogin');this.$store.state.userLogin=''
                     this.$router.replace("/Login")
                 }else  if(response.data.status==200){
@@ -135,7 +135,7 @@ export default {
 	        var vm=this;
 	        this.$http.post(url).then(response => {   
 	            if(response.data.status==432){
-                    this.$message.error("登录过期，请重新登录！");
+                    this.$message.error("Your login has been expired, please re-login！");
                     this.$store.state.login=false;
                     localStorage.setItem("login", false);
                     this.$router.replace("/Login")

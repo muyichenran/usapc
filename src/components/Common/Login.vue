@@ -4,7 +4,7 @@
 		  <el-tab-pane label="Login" name="login">
 		  	<table class="login">
 		  		<tr>
-		  			<td align="right" width="100" class="td-title">
+		  			<td align="right" width="170" class="td-title">
 		  				Account
 		  			</td>
 		  			<td>
@@ -12,7 +12,7 @@
 		  			</td>
 		  		</tr>
 		  		<tr>
-		  			<td align="right" width="100" class="td-title">
+		  			<td align="right"  class="td-title">
 		  				Password
 		  			</td>
 		  			<td>
@@ -25,7 +25,7 @@
 		  <el-tab-pane label="Register" name="sign">
 		  	<table class="login">
 		  		<tr>
-		  			<td align="right" width="100" class="td-title">
+		  			<td align="right" width="170" class="td-title">
 		  				Login account
 		  			</td>
 		  			<td>
@@ -33,7 +33,7 @@
 		  			</td>
 		  		</tr>
 		  		<tr>
-		  			<td align="right" width="100" class="td-title">
+		  			<td align="right"  class="td-title">
 		  				Password
 		  			</td>
 		  			<td>
@@ -41,7 +41,7 @@
 		  			</td>
 		  		</tr>
 		  		<tr>
-		  			<td align="right" width="100" class="td-title">
+		  			<td align="right" class="td-title">
 		  				Confirm password
 		  			</td>
 		  			<td>
@@ -49,7 +49,7 @@
 		  			</td>
 		  		</tr>
 				<tr>
-		  			<td align="right" width="100" class="td-title">
+		  			<td align="right" class="td-title">
 		  				Nickname
 		  			</td>
 		  			<td>
@@ -57,7 +57,7 @@
 		  			</td>
 		  		</tr>
 		  		<tr>
-		  			<td align="right" width="100" class="td-title">
+		  			<td align="right" class="td-title">
 		  				verification number
 		  			</td>
 		  			<td>
@@ -140,14 +140,14 @@ export default {
 <style scoped lang="scss">
 @import "../../assets/mixin.scss";
 .loginSign{
-	width: 420px;
+	width: 540px;
 	background: #FFFFFF;
 	margin: 40px auto 40px;
 	.el-tabs__nav{
 		width: 100%;
 	}
 	table{
-		width: 350px;
+		width: 100%;
 		td{
 			padding: 10px;
 		}

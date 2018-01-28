@@ -14,8 +14,9 @@
             <div v-for="(item,index) in orderList" class="order-item">
 				<div class="order-top clearfix">
 					<span>Order Number:</span>{{item.orderId}}
-					<span>Order Date：</span>{{item.createTime |formatTime}}
-					<span>Total Amount：</span><i class="money">${{item.payment}}</i>
+					<span>Order Date:</span>{{item.createTime |formatTime}}
+					<span>Total Amount:</span><i class="money">${{item.payment}}</i>
+					<span>Merchandise Num:</span><i style="color:rgb(32, 160, 255)">{{item.items.length}}</i>
 					<span v-if="item.status==2" class="f-r" style="color: #409eff;">Complete</span>
 					<span v-if="item.status==1" class="f-r" style="color: #f56c6c;">Pending</span>
 					
@@ -168,6 +169,7 @@ export default {
 		padding: 0 10px;
 		span{
 			color: #000;
+			padding-right:3px;
 			padding-left: 20px;
 			&:first-child{
 				padding-left: 0

@@ -38,17 +38,18 @@
                 </div>
                 <table class="choose-speci">
                     <tr>
-                        <td valign="top"  width="60px" class="title" style="padding-top:25px;">
+                        <td valign="top"  width="60px" class="title" style="padding-top:15px;">
                             {{itemProperty[0].property.title}}
                         </td>
                         <td>
                             <div class="color-list">
                                 <a class="item" v-for="(item,index) in itemProperty[0].values" 
                                     @click="colorClick(item.propertyValueId,item.remark)"
-                                    v-bind:style="{ background: item.valueTitle}"
+                                   
                                     v-bind:class="{active:item.propertyValueId==colorId}"
                                     href="javascript:;" >
-
+                                    <span class="color-block" v-bind:style="{ background: item.valueTitle}"></span>                            
+                                    <span class="remank-block">{{item.remark}}</span>
                                 </a>
                             </div>
                         </td>
@@ -397,14 +398,25 @@ export default {
         }
         .color-list{
             .item{
-                width: 50px;
-                height: 50px;
+                height: 30px;
+                line-height: 28px;
                 display: block;
                 float: left;
                 margin-right: 10px;
                 margin-bottom: 15px;
                 box-sizing: border-box;
+                font-size: 0;
                 border: 1px solid #ddd;
+                .color-block{
+                    height: 100%;
+                    width: 28px;
+                    display:inline-block;
+                    float: left;
+                }
+                .remank-block{
+                    font-size: 14px;
+                    padding:0 10px;
+                }
             }
             .active{
                 border: 2px solid #b4a078;

@@ -2,7 +2,7 @@
 		<div class="top-fix">
 			  <div class="usa-header">
                     <div class="usa-h-center center1200 clearfix">
-                        <div class="web-name">公司名称</div>							
+                        <div class="web-name">Romon</div>							
                         <div class="usa-h-right">
                             <div v-if="!login" class="sign-login">
                                 <router-link :to="{path:'/Login',query:{active:'login'}}" title="Login/Register">Login/Register</router-link>

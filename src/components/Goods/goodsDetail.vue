@@ -33,7 +33,7 @@
             </div>
             <div class="goods-skin" v-bind:class="{ goodserror: errorShow }">
                 <div v-if="errorShow" class="good-error clearfix">
-                    <span>请选择您要的商品信息</span>
+                    <span>Please select your product category</span>
                     <a class="close" style="float:right" @click="errorShow=false" href="javascript:;">x</a>
                 </div>
                 <table class="choose-speci">
@@ -75,7 +75,7 @@
                             Num
                         </td>
                         <td>
-                            <el-input-number :min="1" v-model="num1" style="width:150px"></el-input-number><span v-if="catNum" style="color:#95989a;padding-left:15px;">库存{{catNum}}</span>
+                            <el-input-number :min="1" v-model="num1" style="width:150px"></el-input-number><span v-if="catNum" style="color:#95989a;padding-left:15px;">Inventory {{catNum}}</span>
                         </td>
                     </tr>
                     <tr>
@@ -83,7 +83,7 @@
                             
                         </td>
                         <td>
-                            <el-button @click="addGoods()" type="primary">加入购物车</el-button>
+                            <el-button @click="addGoods()" type="primary">Add to shopping cart</el-button>
                         </td>
                     </tr>
                 </table>

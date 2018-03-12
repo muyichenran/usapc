@@ -419,7 +419,7 @@ export default {
                 }
             }
             .active{
-                border: 2px solid #b4a078;
+                border: 2px solid red;
             }
         }
         .size-list{
@@ -437,7 +437,7 @@ export default {
                 border: 1px solid #ddd;
             }
             .active{
-                border: 2px solid #b4a078;
+                border: 2px solid red;
             }
         }
     }   
